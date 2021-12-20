@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 
 const Login: React.FC = () =>{
     return (
-        <div>Hello dummy data</div>
+        <div></div>
     );
 }
 
