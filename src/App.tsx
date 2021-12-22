@@ -13,9 +13,7 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 
 function App() {
-  return (
-    <div>
-      <Home></Home>
+  return (    
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
@@ -32,7 +30,6 @@ function App() {
           <Route path="/user-submissions" element={<UserSubmissions />} />
         </Routes>
       </Router>
-    </div>
   );
 }
 

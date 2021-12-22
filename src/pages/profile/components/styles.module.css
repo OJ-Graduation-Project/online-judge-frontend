@@ -1,0 +1,8 @@
+.title-info-container{
+    display: flex;
+    flex-direction: row;
+}
+.text{
+    margin-right: 4px;
+    margin-top: 8px;
+}
