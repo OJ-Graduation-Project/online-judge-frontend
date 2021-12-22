@@ -1,0 +1,23 @@
+.Login{
+    justify-content: center;
+    box-shadow: 0 5px 50px 0 rgba(0, 0, 0, 0.19);
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    border: 3px solid #02706B;
+    margin-top: 100px;
+    padding:20px;
+}
+.icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.text{
+    font-weight: bold;
+    color: #02706B;
+    font-size: 40px;
+}
+.icon_class>.MuiSvgIcon-root{
+    color:#02706B;
+}
