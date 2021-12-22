@@ -12,6 +12,10 @@ import SignUp from "./pages/sign-up";
 import Login from "./pages/login";
 import Home from "./pages/home";
 
+import AllContests from "./pages/all-contests";
+import Registration from "./pages/registration";
+
+
 function App() {
   return (    
       <Router>
@@ -28,6 +32,10 @@ function App() {
           <Route path="/contest" element={<Contest />} />
           <Route path="/scoreboard" element={<Scoreboard />} />
           <Route path="/user-submissions" element={<UserSubmissions />} />
+
+          <Route path="/all-contests" element={<AllContests />} />
+          <Route path="/all-contests/Registration" element={<Registration />} />
+
         </Routes>
       </Router>
   );
