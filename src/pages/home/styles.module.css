@@ -1,0 +1,107 @@
+.title {
+  background-color: white;
+}
+
+.ul {
+  columns: 5;
+  -webkit-columns: 5;
+  -moz-columns: 5;
+}
+
+.li {
+  text-decoration: none;
+  text-transform: none;
+  color: black;
+}
+
+.li:hover {
+  color: #0dadea;
+}
+
+.expand {
+  font-size: 12px;
+  padding-bottom: 10px;
+  width: 200px;
+  background-color: transparent;
+  border: none;
+  color: gray;
+}
+
+.categorySection {
+  background-color: white;
+  padding: 30px;
+  padding-top: 10px;
+  border-bottom: 2px outset #eeeeee;
+}
+
+.dropdown {
+  width: 110px;
+  display: inline-block;
+  padding-right: 50px;
+  padding-left: 40px;
+}
+
+.searchAndDrop {
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 20px;
+}
+.search {
+  padding-top: 20px;
+  width: 110px;
+  display: inline-block;
+  padding-right: 50px;
+  padding-left: 40px;
+}
+.filters {
+  padding-bottom: 45px;
+  padding-top: 25px;
+}
+.inputWithButton {
+  position: relative;
+  height: 30px;
+  width: 700px;
+}
+
+.inputWithButton input {
+  width: 100%;
+  height: 30px;
+  padding-right: 0px;
+  border-color: #9b9292;
+}
+
+.inputWithButton input:focus {
+  outline: none;
+}
+
+.inputWithButton button {
+  position: absolute;
+  height: 30px;
+  background-color: transparent;
+  right: 0;
+  float: right;
+  border: none;
+  top: 5px;
+  font-size: 15px;
+}
+
+.table {
+  margin: 15px;
+  padding-top: 10px;
+  border-bottom: 2px outset #eeeeee;
+}
+.black {
+  color: black !important;
+}
+.red {
+  color: red !important;
+  font-style: italic;
+}
+
+.green {
+  color: green !important;
+}
+
+.orange {
+  color: #ffca28 !important;
+}
