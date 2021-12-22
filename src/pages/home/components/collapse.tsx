@@ -38,17 +38,15 @@ function Collapse() {
           : "Click to Expand  \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0🡣"}
       </button>
       <section {...getCollapseProps()}>
-        <Router>
-          <ul className={styles["ul"]}>
-            {categories.map((category) => (
-              <li>
-                <Link className={styles["li"]} to={"problem/" + category}>
-                  {category}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Router>
+        <ul className={styles["ul"]}>
+          {categories.map((category) => (
+            <li>
+              <Link className={styles["li"]} to={"problem/" + category}>
+                {category}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );
