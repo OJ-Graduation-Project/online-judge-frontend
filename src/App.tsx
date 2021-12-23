@@ -11,6 +11,7 @@ import Submit from "./pages/submit";
 import SignUp from "./pages/sign-up";
 import Login from "./pages/login";
 import Home from "./pages/home";
+import TopNav from "./components/topNav";
 
 import AllContests from "./pages/all-contests";
 import Registration from "./pages/registration";
