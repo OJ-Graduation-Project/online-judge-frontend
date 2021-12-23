@@ -20,14 +20,15 @@ function App() {
   return (    
       <Router>
         <Routes>
+
           <Route path="/home" element={<Home />} />
+          <Route path="/submission" element={<Submission />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/submit" element={<Submit />} />
           <Route path="/problem" element={<Problem />} />
           <Route path="/create-problem" element={<CreateProblem />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/submission" element={<Submission />} />
           <Route path="/create-contest" element={<CreateContest />} />
           <Route path="/contest" element={<Contest />} />
           <Route path="/scoreboard" element={<Scoreboard />} />
@@ -38,7 +39,7 @@ function App() {
 
         </Routes>
       </Router>
-  );
+    );
 }
 
 export default App;
