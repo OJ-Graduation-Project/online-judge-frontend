@@ -9,8 +9,11 @@ function TopNav() {
         <NavLink to="/home">
           <li>Problems</li>
         </NavLink>
-        <NavLink to="/contest">
-          <li>Contest</li>
+        <NavLink to="/all-contests">
+          <li>contests</li>
+        </NavLink>
+        <NavLink to="/create-contest">
+          <li>Create Contest</li>
         </NavLink>
         <NavLink to="/profile">
           <li>My Profile</li>
@@ -27,6 +30,10 @@ function TopNav() {
         <NavLink to="/scoreboard">
           <li>View Scoreboard</li>
         </NavLink>
+        <NavLink to="/contest">
+          <li>Contest 1</li>
+        </NavLink>
+
       </S.Ul>
     </>
   );
