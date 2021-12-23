@@ -1,6 +1,7 @@
 import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import TopNav from "../../components/topNav";
+import Container from '@mui/material/Container';
 
 const Scoreboard: React.FC = () =>{
     const columns: GridColDef[] = [
@@ -21,15 +22,18 @@ const Scoreboard: React.FC = () =>{
     return (
         <div>
             <TopNav />
-            <h2>Scoreboard</h2>
-            <div style={{ height: 500, width: "100%" }}>
-            <DataGrid
-                    rows={state.rows}
-                    columns={state.columns}
-                    pageSize={6}
-                    rowsPerPageOptions={[6]}
-                />
-            </div>
+            <Container>
+                <h2>Scoreboard</h2>
+                <div style={{ height: 500, width: "100%" }}>
+                <DataGrid
+                        rows={state.rows}
+                        columns={state.columns}
+                        pageSize={6}
+                        rowsPerPageOptions={[6]}
+                    />
+                </div>
+            </Container>
+            
 
         </div>
     );
