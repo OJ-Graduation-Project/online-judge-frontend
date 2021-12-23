@@ -21,6 +21,12 @@ function TopNav() {
         <NavLink to="/submission">
           <li>Submission</li>
         </NavLink>
+        <NavLink to="/create-problem">
+          <li>Create a problem</li>
+        </NavLink>
+        <NavLink to="/scoreboard">
+          <li>View Scoreboard</li>
+        </NavLink>
       </S.Ul>
     </>
   );

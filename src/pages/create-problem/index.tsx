@@ -4,6 +4,7 @@ import { CodeBlock, dracula } from "react-code-blocks";
 import TextField from '@mui/material/TextField';
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@mui/material/Button"
+import TopNav from "../../components/topNav";
 
 
 const CreateProblem: React.FC = () => {
@@ -19,6 +20,7 @@ const CreateProblem: React.FC = () => {
     const [state, setState] = React.useState({ rows: rows, columns: columns });
     return (
         <div>
+            <TopNav />
             <h2>Enter Problem Description:</h2>
             <TextField id="outlined-basic"  minRows={10} fullWidth={true} label="Problem description" multiline={true} variant="filled" />
             <h2>Enter Problem Solution:</h2>
