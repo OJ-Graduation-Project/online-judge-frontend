@@ -15,6 +15,12 @@ function TopNav() {
         <NavLink to="/profile">
           <li>My Profile</li>
         </NavLink>
+        <NavLink to="/submit">
+          <li>Submit</li>
+        </NavLink>
+        <NavLink to="/submission">
+          <li>Submission</li>
+        </NavLink>
       </S.Ul>
     </>
   );

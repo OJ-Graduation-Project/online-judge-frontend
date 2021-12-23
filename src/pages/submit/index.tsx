@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 
 import { useSearchParams } from "react-router-dom";
 import styles from "./styles.module.css";
+import TopNav from "../../components/topNav";
 
 const Submit: React.FC = () =>{
     const [problem, setProblem] = useState({
@@ -22,6 +23,7 @@ const Submit: React.FC = () =>{
       
     return (
         <div>
+            <TopNav/>
             <Container>
                 <div>
                     <h2>{problem.name}</h2>

@@ -6,6 +6,7 @@ import CodeSnippet from "../../components/CodeSnippet";
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
+import TopNav from "../../components/topNav";
 interface submission {
     code: string;
     verdict: string;
@@ -20,7 +21,7 @@ interface testCase{
 const Submission: React.FC = () =>{
     const [submission , setSubmission] = useState({
         code: "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        if(n < 0)\n            return false;\n        return __builtin_popcount(n) == 1;\n    }\n};",
-        accepted: true,
+        accepted: false,
         language: "cpp",
         date: "1/1/2021",
         failedCase: { //should be testcase object
@@ -43,10 +44,11 @@ const Submission: React.FC = () =>{
     //     }  
     //     getSubmission();
     // }, []);
-    // const text: string = "Lorem Ipsum is simply \ndummy text of the \nprinting and\n typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     return (
+        
         <React.Fragment>
         <CssBaseline />
+        <TopNav/>
         <Container fixed>
             <div style={styles}>
                 <div className = "header" >
