@@ -1,20 +1,19 @@
 
 # Online Judge
 
-## Table of Content
 - [Online Judge](#online-judge)
-  - [Table of Content](#table-of-content)
-  - [Dependencies](#dependencies)
-  - [How to clone and run](#how-to-clone-and-run)
-  - [Contributing](#contributing)
+  * [Dependencies](#dependencies)
+  * [How to clone and run](#how-to-clone-and-run)
+  * [Contributing](#contributing)
 
 ## Dependencies
+
 [node](https://nodejs.org/en/)
 
 ## How to clone and run
 
 ```bash
-git clone https://github.com/Omar-Radwan/online-judge-frontend
+git clone https://github.com/OJ-Graduation-Project/online-judge-frontend
 cd online-judge-frontend
 npm install
 npm start
