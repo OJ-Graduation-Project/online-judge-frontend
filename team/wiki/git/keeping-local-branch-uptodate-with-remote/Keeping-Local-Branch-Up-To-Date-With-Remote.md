@@ -42,10 +42,10 @@ Directly after cloning, it is guaranteed that your local `main` branch is **up-t
 
 ```java
 ——— local main branch ————O
-					   	   \
-	  					     \
-	    					   \	
-							      ——— FB/1 ——>
+					   	   		\
+	  					     	 \
+	    					  	  \	
+							       ——— FB/1 ——>
 ```
 
 What happens if you finish your work and want to merge to the main branch after some time has passed? What if your **local** `main` is no longer in sync with the **remote** `main`? Maybe other collaborators have merged their branches successfully on the remote repository, which is not yet present at your local repository. Before merging your work, you should make sure you’re merging to the latest version to avoid conflicts.
@@ -53,10 +53,10 @@ What happens if you finish your work and want to merge to the main branch after 
 ```java
 ——— remote main branch ————O————O————O————O————————>
 ——— local main branch ————O
-					   	   \
-	  					     \
-	    					   \	
-							      ——— FB/1 ——>
+					   	   		\
+	  					   		 \
+	    					  	  \	
+							       ——— FB/1 ——>
 ```
 
 * * *
@@ -77,10 +77,10 @@ After pulling successfully, your local main will be up to date and identical to 
                                 |    |    |  
                                 v    v    v    
 ——— local main branch ————O—————O————O————O————————>
-					   	   \
-	  					     \
-	    					   \	
-							      ——— FB/1 ——>
+					   	       \
+	  					        \
+	    					      \	
+							        ——— FB/1 ——>
 ```
 
 Now to make sure your feature branch will merge successfully, checkout your feature branch using `git checkout FB/1` then pull the changes from your local main to it using the command `git pull origin main`, if no conflicts occur, then you can merge successfully OR rebase your feature branch on top of your new up to date main using `git rebase main`.
