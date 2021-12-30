@@ -1,0 +1,12 @@
+.problemPage{
+    text-align: center;
+    margin: 0 100px 20px 100px;
+    padding: 0 100px 20px 100px;
+}
+.problem{
+    text-align: left;
+}
+.table{
+    margin-top: 20px;
+    padding-top: 20px;
+}
