@@ -13,14 +13,39 @@ import TopNav from "../../components/topNav";
 
 const Submit: React.FC = () =>{
     const [problem, setProblem] = useState({
-        name:  "84. Largest Rectangle in Histogram",
+        name:  "84. Add two Numbers",
         id: 84
     });
-    const [language, setLanguage] = useState('java');
+    const [language, setLanguage] = useState('cpp');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
     const [code, setCode] = React.useState(
-        `function add(a, b) {\n  return a + b;\n}`
+        `#include <iostream>
+        using namespace std;
+        
+        int main()
+        {
+             int x,y;
+             cin>>x>>y;
+             
+             cout << x+y << endl;
+             return 0;
+        }
+        `
       );
+
+
+      const handleClick=()=>{
+          const problemid=problem.id;
+        const user ={language,code,problemid};
+        fetch('http://localhost:8000/submit',{
+            method : 'POST',
+            headers:{'content-type':'application/json'},
+            body:JSON.stringify(user)
+        }).then(()=>{
+            console.log("done");
+        })
+    }
+
       
     return (
         <div>
@@ -45,7 +70,7 @@ const Submit: React.FC = () =>{
                     fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
                 }}
                 />
-                <button>Submit</button>
+                <button onClick={handleClick}>Submit</button>
             </Container>
         
         </div>
