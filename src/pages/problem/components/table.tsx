@@ -7,11 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
 function createData(
   input: string,
   output: string,
 ) {
-  return { input, output};
+  return {input, output};
 }
 
 const rows = [
@@ -20,7 +21,14 @@ const rows = [
     createData('nums = [3,3], target = 6', '[0,1]')
 ];
 
-export default function DenseTable() {
+
+interface Testcase {
+	id: number,
+	input: string,
+	output: string
+}
+
+export default function DenseTable(props: {test:Testcase[]}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -31,7 +39,7 @@ export default function DenseTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {props.test.map((row) => (
             <TableRow
               key={row.input}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
