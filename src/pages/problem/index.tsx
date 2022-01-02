@@ -4,7 +4,6 @@ import DenseTable from "./components/table"
 import { Button } from "@mui/material";
 import TopNav from "../../components/topNav";
 import problem from './components/problem.json'
-import axios from 'axios';
 
 interface Testcase {
 	id: number,
