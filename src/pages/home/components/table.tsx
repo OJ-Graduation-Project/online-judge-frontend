@@ -1,98 +1,47 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import Link from "@mui/material/Link";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-
-const columns: GridColDef[] = [
-  { field: "id", headerName: "Title", width: 800 },
-  { field: "status", headerName: "Status", width: 300 },
-  { field: "difficulty", headerName: "Difficulty", width: 300 },
-];
-
-const rows = [
-  {
-    id: "84. Largest Rectangle in Histogram",
-    difficulty: "Hard",
-    status: "Todo",
-  },
-  {
-    id: "68. Text Justification",
-    difficulty: "Hard",
-    status: "Todo",
-  },
-  {
-    id: "41. First Missing Positive",
-    difficulty: "Hard",
-    status: "Todo",
-  },
-  {
-    id: "32. Longest Valid Parentheses",
-    difficulty: "Hard",
-    status: "Todo",
-  },
-  {
-    id: "23. Merge k Sorted Lists",
-    difficulty: "Hard",
-    status: "Solved",
-  },
-  {
-    id: "63. Unique Paths II",
-    difficulty: "Medium",
-    status: "Todo",
-  },
-  {
-    id: "61. Rotate List",
-    difficulty: "Medium",
-    status: "Todo",
-  },
-  {
-    id: "50. Pow(x, n)",
-    difficulty: "Medium",
-    status: "Solved",
-  },
-  {
-    id: "50. Pow(x, n)",
-    difficulty: "Medium",
-    status: "Solved",
-  },
-  {
-    id: "19. Remove Nth Node From End of List",
-    difficulty: "Medium",
-    status: "Solved",
-  },
-  {
-    id: "7. Reverse Integer",
-    difficulty: "Medium",
-    status: "Solved",
-  },
-  {
-    id: "1736. Latest Time by Replacing Hidden Digits",
-    difficulty: "Easy",
-    status: "Todo",
-  },
-  {
-    id: "1752. Check if Array Is Sorted and Rotated",
-    difficulty: "Easy",
-    status: "Todo",
-  },
-  {
-    id: "121. Best Time to Buy and Sell Stock",
-    difficulty: "Easy",
-    status: "Todo",
-  },
-  {
-    id: "119. Pascal's Triangle II",
-    difficulty: "Easy",
-    status: "Todo",
-  },
-  {
-    id: "9. Palindrome Number",
-    difficulty: "Easy",
-    status: "Todo",
-  },
-];
-
+import data from "../problems.json";
+import Problem from "../../problem";
 export default function DataTable() {
+  const [d, setD] = useState(data);
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "id", width: 50 },
+
+    {
+      field: "name",
+      headerName: "Title",
+      renderCell: (cellValues) => {
+        return (
+          <Link
+            component="button"
+            onClick={(event) =>
+              (window.location.href = "/problem/?name=" + cellValues.row.name)
+            }
+          >
+            {cellValues.row.name}
+          </Link>
+        );
+      },
+
+      width: 800,
+    },
+    { field: "status", headerName: "Status", width: 300 },
+    { field: "difficulty", headerName: "Difficulty", width: 300 },
+  ];
+
+  const rows = [{}];
+
+  for (let i = 0; i < d.length; i++) {
+    rows[i] = {
+      id: i + 1,
+      name: d[i].problemName,
+      difficulty: d[i].Difficulty,
+      status: "to be discussed ",
+    };
+  }
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 350, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
