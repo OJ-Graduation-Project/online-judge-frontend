@@ -1,7 +1,20 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import styles from "./styles.module.css";
-
+const urlParams = new URLSearchParams(window.location.search);
+const contestName = urlParams.get("contest-name");
+const handleSubmit = () => {
+  let userId = "909";
+  fetch(
+    `http://localhost:8000/all-contests/Registration/contest-name=${contestName}`,
+    {
+      method: "POST",
+      body: JSON.stringify({ userId, contestName }),
+    }
+  ).then(() => {
+    console.log("done");
+  });
+};
 const Registration: React.FC = () => {
   return (
     <div className={styles["register"]}>
@@ -21,7 +34,7 @@ const Registration: React.FC = () => {
         3- Will not attempt to deliberately destabilize the testing process and
         try to hack the contest system in any form
       </p>
-      <Button>Register</Button>
+      <Button onClick={handleSubmit}>Register</Button>
     </div>
   );
 };
