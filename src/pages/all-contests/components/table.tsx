@@ -1,5 +1,7 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "@mui/material/Link";
+import React, { useState, useEffect } from "react";
+import data from "../contest.json";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "Name", width: 400 },
@@ -18,7 +20,8 @@ const columns: GridColDef[] = [
         <Link
           component="button"
           onClick={(event) =>
-            (window.location.href = "/all-contests/Registration")
+            (window.location.href =
+              "/all-contests/Registration/?contest-name=" + cellValues.row.id)
           }
         >
           Register
@@ -29,40 +32,19 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: "Contest 1",
-    writers: "Verginia",
-    start: "Dec/24/2021 16:35 UTC",
-    length: "2:00",
-  },
-  {
-    id: "Educational Round",
-    writers: "Verginia",
-    start: "Dec/24/2021 16:35 UTC",
-    length: "2:30",
-  },
-  {
-    id: "Round 18",
-    writers: "Verginia",
-    start: "Dec/24/2021 16:35 UTC",
-    length: "3:00",
-  },
-  {
-    id: "Round 11",
-    writers: "Verginia",
-    start: "Dec/24/2021 16:35 UTC",
-    length: "3:00",
-  },
-  {
-    id: "Contest 15",
-    writers: "Verginia",
-    start: "Dec/24/2021 16:35 UTC",
-    length: "3:00",
-  },
-];
-
 export default function DataTable() {
+  const [d, setD] = useState(data);
+
+  const rows = [{}];
+
+  for (let i = 0; i < d.length; i++) {
+    rows[i] = {
+      id: d[i].contestName,
+      writers: "tbd",
+      start: d[i].startDate + ",  " + d[i].startTime,
+      length: d[i].duration,
+    };
+  }
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
