@@ -9,14 +9,6 @@ export default function SearchBar() {
     const enteredName = event.target.value;
     setsearchValue(enteredName);
   };
-  const handleSubmit = () => {
-    fetch("http://localhost:8000/home", {
-      method: "POST",
-      body: JSON.stringify({ searchValue }),
-    }).then(() => {
-      console.log("done");
-    });
-  };
 
   return (
     <div className={styles["inputWithButton"]}>
@@ -27,7 +19,9 @@ export default function SearchBar() {
         value={searchValue}
         onChange={inputHandler}
       />
-      <button onClick={handleSubmit}>
+      <button onClick={(event) =>
+              (window.location.href = "/home/?search=" + searchValue)
+            }>
         <BsSearch />
       </button>
     </div>

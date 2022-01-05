@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "@mui/material/Link";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import data from "../problems.json";
 import Problem from "../../problem";
-export default function DataTable() {
-  const [d, setD] = useState(data);
+export default function DataTable(props:{
+  data: Problem[],
+}) {
+  const d = props.data;
   const columns: GridColDef[] = [
     { field: "id", headerName: "id", width: 50 },
 
@@ -34,7 +35,7 @@ export default function DataTable() {
 
   for (let i = 0; i < d.length; i++) {
     rows[i] = {
-      id: i + 1,
+      id: d[i].problemId,
       name: d[i].problemName,
       difficulty: d[i].Difficulty,
       status: "to be discussed ",
