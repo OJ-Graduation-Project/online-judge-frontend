@@ -8,21 +8,21 @@ import { Container } from '@mui/material';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import TopNav from "../../components/topNav";
-import Problem from "../problem";
 
 const CreateProblem: React.FC = () => {
 
     const [problemJSONName, setproblemJSONName] = useState("problem")
 
     const saveProblem = () => {
-        // const fileData = JSON.stringify({
-        //     name: problemName,
-        //     problemDesc: problemDesc,
-        //     category: problemCategory,
-        //     difficulty: problemDifficulty,
-        //     timeLimit: problemTimeLimit,
-        //     solutionCode: problemSolution
-        // });
+        const problem = {
+            name: problemName,
+            problemDesc: problemDesc,
+            category: problemCategory,
+            difficulty: problemDifficulty,
+            timeLimit: problemTimeLimit,
+            memLimit: problemMemLimit,
+            solutionCode: problemSolution
+        }
         // const blob = new Blob([fileData], { type: "text/plain" });
         // const url = URL.createObjectURL(blob);
         // const link = document.createElement('a');
@@ -32,7 +32,7 @@ const CreateProblem: React.FC = () => {
         fetch('http://localhost:8000/create-problem',{
             method : 'POST',
             // headers:{'content-type':'application/json'},
-            body:JSON.stringify(Problem)
+            body:JSON.stringify(problem)
         }).then(()=>{
             console.log("done");
         })
@@ -42,7 +42,8 @@ const CreateProblem: React.FC = () => {
     const [problemDesc, setProblemDesc] = useState("")
     const [problemCategory, setProblemCategory] = useState("")
     const [problemDifficulty, setProblemDifficulty] = useState("")
-    const [problemTimeLimit, setProblemTimeLimit] = useState("")
+    const [problemTimeLimit, setProblemTimeLimit] = useState(0)
+    const [problemMemLimit, setProblemMemLimit] = useState(0)
     const [problemSolution, setProblemSolution] = React.useState(
         `function add(a, b) {\n  return a + b;\n}`
     );
@@ -69,7 +70,8 @@ const CreateProblem: React.FC = () => {
         setProblemDifficulty("")
         setProblemCategory("")
         setProblemSolution(" `function add(a, b) {\n  return a + b;\n}`")
-        setProblemTimeLimit("")
+        setProblemTimeLimit( 0 ) 
+        setProblemMemLimit( 0 )
 
     }
     const verifySolution = () => {
@@ -120,8 +122,10 @@ const CreateProblem: React.FC = () => {
             <Dropdown options={categories} onChange={(problemCategory) => { setProblemCategory(problemCategory.value) }} value={problemCategory} placeholder="Select a category" />
             <h2>Choose problem difficulty:</h2>
             <Dropdown options={difficulties} onChange={(problemDifficulty) => { setProblemDifficulty(problemDifficulty.value) }} value={problemDifficulty} placeholder="Select a difficulty" />
-            <h2>Enter Problem TimeLimit:</h2>
-            <TextField id="outlined-basic" fullWidth={true} label="Problem TimeLimit in ms" multiline={true} variant="filled" onChange={event => setProblemTimeLimit(event.target.value)} />
+            <h2>Enter Problem Time Limit:</h2>
+            <input id="outlined-basic"  onChange={event => setProblemTimeLimit(event.target.valueAsNumber)} />
+            <h2>Enter Problem Memory Limit:</h2>
+            <input id="outlined-basic" onChange={event => setProblemMemLimit(event.target.valueAsNumber)} />
 
             <Button type="submit" onClick={handleProblemChange} style={{ float: 'right' }} variant="text">Submit</Button>
 
