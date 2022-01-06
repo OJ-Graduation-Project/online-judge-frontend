@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserSubmissions from "./pages/user-submissions";
 import Scoreboard from "./pages/scoreboard";
-import Contest from "./pages/contest";
+import ContestFront from "./pages/contest";
 import CreateContest from "./pages/create-contest";
 import Submission from "./pages/submission";
 import Profile from "./pages/profile";
@@ -31,7 +31,7 @@ function App() {
           <Route path="/create-problem" element={<CreateProblem />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-contest" element={<CreateContest />} />
-          <Route path="/contest" element={<Contest />} />
+          <Route path="/all-contests/contest/:id" element={<ContestFront />} />
           <Route path="/scoreboard" element={<Scoreboard />} />
           <Route path="/user-submissions" element={<UserSubmissions />} />
 
