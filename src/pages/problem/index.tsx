@@ -4,18 +4,19 @@ import DenseTable from "./components/table"
 import { Button } from "@mui/material";
 import TopNav from "../../components/topNav";
 import problem from './components/problem.json'
-import Submit from '.'
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import CodeSnippet from "../../components/CodeSnippet";
 import Container from '@mui/material/Container';
 
-interface Testcase {
-	id: number,
-	input: string,
-	output: string
+interface SubmissionRequest {
+	problemID: number,
+	ownerID: number,
+	language: string,
+	code: string,
+	submissionId: number,
+	date: string ,
 }
-
 interface Problem {
     problemId: number,
 	problemName: string,
@@ -25,31 +26,55 @@ interface Problem {
 	timeLimit: string,
 	memoryLimit: string,
 	Difficulty: string,
-	testcases: Testcase[],
+	testcases: TestCase[],
 	problemSubmissionsId: []
+}
+interface TestCase {
+    problemId: number,
+    testCaseNumber: number,
+    input: string,
+    output: string,
+}
+interface FailedTestCase {
+    testCase: TestCase,
+    reason: string,
+    userOutput: string,
+}
+interface Submission {
+	submissionId:number,    
+	problemId:number,         
+	userId:number,        
+    date:string,         
+	language:string,   
+	submittedCode:string,  
+	time:string, 
+	space:string,
+	accepted:boolean,
+	failedTestCase :FailedTestCase,
 }
 
 const Problem: React.FC = () =>{
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
-    let p:Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
 
+    let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+    let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <iostream>
+        using namespace std;
+        
+        int main()
+        {
+             int x,y;
+             cin>>x>>y;
+             
+             cout << x+y << endl;
+             return 0;
+        }
+        `,time: "",space: "",accepted: false,failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
+    }
     let [problem, setProblem] = useState(p)
     let [problemIsLoaded, setProblemIsLoaded] = useState(false)
-    let [submissionIsLoaded, setSubmissionIsLoaded] = useState(true)
-    let [submission, setSubmission] = useState({
-        code: "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        if(n < 0)\n            return false;\n        return __builtin_popcount(n) == 1;\n    }\n};",
-        accepted: false,
-        language: "cpp",
-        date: "1/1/2021",
-        failedCase: { //should be testcase object
-            id: 34,
-            reason: "Wrong Answer",
-            input:"[0,1,2,3]",
-            yourOutput:"true",
-            expectedOutput:"false"
-        } 
-    });
+    let [submissionIsLoaded, setSubmissionIsLoaded] = useState(false)
+    let [submission, setSubmission] = useState(s);
     useEffect(() => {
         fetch('http://localhost:8000/problem',{
             method : 'POST',
@@ -70,9 +95,8 @@ const Problem: React.FC = () =>{
 
     const [language, setLanguage] = useState('cpp');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
-    const [code, setCode] = React.useState(
-        `#include <iostream>
-        using namespace std;
+    const [code, setCode] = React.useState(`#include <iostream> 
+    using namespace std;
         
         int main()
         {
@@ -82,22 +106,30 @@ const Problem: React.FC = () =>{
              cout << x+y << endl;
              return 0;
         }
-        `
-      );
-      const handleSubmit=()=>{
+        `);
+        const closeVerdict=()=>{
+            setSubmissionIsLoaded(false);
+        }
+    const handleSubmit=()=>{
         const problemid=problem.problemId;
-        const user ={language,code,problemid};
+        const submissionRequest:SubmissionRequest = {
+            problemID: problem.problemId,
+            ownerID: 0,
+            language: language,
+            code: code,
+            submissionId: 18,
+            date: "1/1/2022", //to be changed
+        }
         fetch('http://localhost:8000/submit',{
             method : 'POST',
             headers:{'content-type':'application/json'},
-            body:JSON.stringify(user)
+            body:JSON.stringify(submissionRequest)
         })
         .then((res) => res.json())
         .then((json)=>{
             console.log(json);
             setSubmission(json);
-            // console.log("done");
-
+            setSubmissionIsLoaded(true);
         })
     }
     if (!problemIsLoaded) return (
@@ -109,14 +141,18 @@ const Problem: React.FC = () =>{
     else return (
         <div>
             <TopNav />
-            <div className={styles["problemPage"]}>
-                <h1>Problem: {problem.problemName}</h1>
-                <h5>
-                    time limit per test: {problem.timeLimit} <br/>
-                    memory limit per test: {problem.memoryLimit}<br/>
-                    input: standard input<br/>
-                    output: standard output<br/>
-                </h5>
+            <Container>
+            <div >
+                <div className={styles["problemPage"]}>
+                    <h1>{problem.problemId}. {problem.problemName}</h1>
+                    <h5>
+                        time limit per test: {problem.timeLimit} <br/>
+                        memory limit per test: {problem.memoryLimit}<br/>
+                        input: standard input<br/>
+                        output: standard output<br/>
+                    </h5>
+                </div>
+                
                 <p className={styles["problem"]}>
                     {problem.description}
                 </p>
@@ -142,28 +178,26 @@ const Problem: React.FC = () =>{
                 />
                 <hr />
                 <Button variant='contained' color="primary" onClick={handleSubmit}>Submit</Button>
-                <div style = {{height: "40px"}}></div>
-                <br/>
             </div>
-            {submissionIsLoaded && <Container>
-                <div style={styles}>
+            {submissionIsLoaded && 
+                <div>
                 <div className = "header" >
-                    <h2>Submitted code on {submission.date}</h2>
                     <h3>Verdict: </h3>
                     {submission.accepted && <h3 style = {{color: "green"}}> Accepted</h3>}
-                    {!submission.accepted && <h3 style = {{color: "red"}}> {submission.failedCase.reason}</h3>}
+                    {!submission.accepted && <h3 style = {{color: "red"}}> {submission.failedTestCase.reason}</h3>}
                 </div>
-                <CodeSnippet code= {submission.code} language = {submission.language}/>
-                {!submission.accepted && <div style = {styles} className = "failedTestCase">
-                        <h3>Test case {submission.failedCase.id}</h3> <hr />
-                        <h4>Input: </h4><h4>  {submission.failedCase.input}</h4> <hr /> 
-                        <h4>Output:   </h4><h4 style = {{color: "red"}}>{submission.failedCase.yourOutput}</h4> <hr />
-                        <h4>Expected: </h4><h4 style = {{color: "green"}}>{submission.failedCase.expectedOutput}</h4>
+                <CodeSnippet code= {submission.submittedCode} language = {submission.language}/>
+                {!submission.accepted && <div  className = "failedTestCase">
+                        <h3>Test case #{submission.failedTestCase.testCase.testCaseNumber}</h3> <hr />
+                        <h4>Input: </h4><h4>  {submission.failedTestCase.testCase.input}</h4> <hr /> 
+                        <h4>Output:   </h4><h4 style = {{color: "red"}}>{submission.failedTestCase.userOutput}</h4> <hr />
+                        <h4>Expected: </h4><h4 style = {{color: "green"}}>{submission.failedTestCase.testCase.output}</h4>
                     </div>} 
-                    <button>Back to problem</button>
-
-            </div>
-            </Container>}
+                    <hr/>
+                    <Button variant='contained' color="primary" onClick={closeVerdict}>Close</Button>
+                    <br />
+                </div>}
+            </Container>
         </div>
     );
 }
