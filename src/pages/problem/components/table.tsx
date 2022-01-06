@@ -22,13 +22,14 @@ const rows = [
 ];
 
 
-interface Testcase {
-	id: number,
-	input: string,
-	output: string
+interface TestCase {
+  problemId: number,
+  testCaseNumber: number,
+  input: string,
+  output: string,
 }
 
-export default function DenseTable(props: {test:Testcase[]}) {
+export default function DenseTable(props: {test:TestCase[]}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

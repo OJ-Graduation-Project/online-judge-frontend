@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import 'react-dropdown/style.css';
 
 // import Editor from "react-simple-code-editor";
@@ -10,12 +10,24 @@ import Container from '@mui/material/Container';
 import { useSearchParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import TopNav from "../../components/topNav";
+import Problem from "../problem";
 
 const Submit: React.FC = () =>{
-    const [problem, setProblem] = useState({
-        name:  "84. Add two Numbers",
-        id: 84
-    });
+    const urlParams = new URLSearchParams(window.location.search);
+    const problemId = urlParams.get("id");
+    let p :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+    const [problem, setProblem] = useState(p);
+    useEffect(()=>{
+        fetch('http://localhost:8000/submit/problemid={id}',{
+            method : 'GET',
+            // body:JSON.stringify({id: problemId})
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            console.log(json)
+            setProblem(json);
+        })
+    })
     const [language, setLanguage] = useState('cpp');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
     const [code, setCode] = React.useState(
@@ -35,7 +47,7 @@ const Submit: React.FC = () =>{
 
 
       const handleClick=()=>{
-          const problemid=problem.id;
+          const problemid=problem.problemId;
         const user ={language,code,problemid};
         fetch('http://localhost:8000/submit',{
             method : 'POST',
@@ -49,10 +61,10 @@ const Submit: React.FC = () =>{
       
     return (
         <div>
-            <TopNav/>
-            <Container>
+            {/* <TopNav/> */}
+            {/* <Container> */}
                 <div>
-                    <h2>{problem.name}</h2>
+                    <h2>{problem.problemName}</h2>
                     <div style = {{width: "50%"}}>
                         <Dropdown options={allLanguages} onChange={(language) => {setLanguage(language.value)}} value={language} placeholder="Select an option" />
                     </div>
@@ -71,7 +83,7 @@ const Submit: React.FC = () =>{
                 }}
                 />
                 <button onClick={handleClick}>Submit</button>
-            </Container>
+            {/* </Container> */}
         
         </div>
     );

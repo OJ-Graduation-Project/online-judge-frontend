@@ -26,6 +26,8 @@ function App() {
           <Route path="/submission" element={<Submission />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/submit/problemid={id}" element={<Submit />} />
+
           <Route path="/submit" element={<Submit />} />
           <Route path="/problem" element={<Problem />} />
           <Route path="/create-problem" element={<CreateProblem />} />
