@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Problemline from "../../components/Problemline";
 import Rankingline from "../../components/Rankingline";
 import Container from "@mui/material/Container";
@@ -7,6 +7,9 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import TopNav from "../../components/topNav";
+import { useParams } from "react-router-dom";
+import Contest from "../all-contests/components/interface"
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,8 +19,42 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+interface Testcase {
+	id: number,
+	input: string,
+	output: string
+}
+
+interface Problem {
+    problemId: number,
+	problemName: string,
+	numberOfSubmissions: number,
+	writerId: number,
+	description: string,
+	timeLimit: string,
+	memoryLimit: string,
+	Difficulty: string,
+	testcases: Testcase[],
+	problemSubmissionsId: []
+}
+interface scoreRequest{
+    page:number,
+    contestid:number,
+}
+
+interface scoreResponse{
+  firstName:string
+  score:number,
+  userid:number,
+}
+
+
 const renderHeader = () => {
-  let headerElement = ["#", "Name", "constraint", "Solved"];
+
+
+
+  
+  let headerElement = ["#", "Name", "constraint", "Difficulty"];
 
   return headerElement.map((key, index) => {
     return (
@@ -52,7 +89,71 @@ const renderRankHeader = () => {
   });
 };
 
-const Contest: React.FC = () => {
+const ContestFront: React.FC = () => {
+  const { id } = useParams()
+  let probs :Problem = {problemId: 0, problemName:"",Difficulty:"",description:"",memoryLimit:"",numberOfSubmissions:0,problemSubmissionsId:[],testcases:[],timeLimit:"",writerId:0};
+  const [problems, setProblems] = useState([probs]);
+  const [loading, setLoading] = useState(true)
+  const [loadingScore, setLoadingScore] = useState(true)
+
+  let scorereq:scoreRequest={page:1,contestid:Number(id)}
+  const [scoreRequest, setScoreRequest] = useState(scorereq)
+  let scoreresp:scoreResponse={firstName:'',userid:0,score:0}
+  const [scoreboardresp, setScoreboardresp] = useState([scoreresp])
+//const [state, setState] = React.useState({ rows: rows, columns: columns });
+
+useEffect(() => {
+  fetch('http://localhost:8000/all-contests/contest/'+id,{
+            method : 'GET',
+        }).then((res) => res.json())
+        .then((json) => {
+            setLoading(false);
+            setProblems(json);
+        })
+  fetch('http://localhost:8000/all-contests/contest/'+id+'/scoreboard',{
+    method : 'POST',
+    headers:{'content-type':'application/json'},
+    body:JSON.stringify(scoreRequest)
+
+  }).then((scoreresp) => scoreresp.json())
+        .then((jsonval) => {
+          setScoreboardresp(jsonval)
+          setLoadingScore(false)
+        })
+  
+}, [])
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "Rank", width: 300 },
+  { field: "name", headerName: "Name", width: 300 },
+ { field: "score", headerName: "score", width: 300 }
+];
+
+
+
+const resprows = [{}];
+
+let loaddata=()=>{
+  if(loadingScore)return false;
+
+  for (let i = 0; i < scoreboardresp.length; i++) {
+  console.log(scoreboardresp[i])
+
+    resprows[i] = {
+      name: scoreboardresp[i].firstName,
+      id:i+1,
+      score: scoreboardresp[i].score,
+    };
+  }
+  console.log(resprows)
+  return true;
+}
+
+
+
+
+
+
   return (
     
     <div>
@@ -88,7 +189,7 @@ const Contest: React.FC = () => {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <Item>
                 <div
                   style={{ textAlign: "center", backgroundColor: "#E1E1E1" }}
@@ -96,22 +197,28 @@ const Contest: React.FC = () => {
                   Problemset{" "}
                 </div>
                 <br></br>
-                <table
-                  style={{
-                    width: "100%",
-                    position: "relative",
-                    boxSizing: "border-box",
-                    borderColor: "grey",
-                    border: "4px solid #E1E1E1",
-                    borderCollapse: "collapse",
-                  }}
-                > 
-                  <tr>{renderHeader()}</tr>
-                  <Problemline></Problemline>
-                </table>
+                <div>
+      {loading ? (<div> </div>) : (
+         <table
+         style={{
+           width: "100%",
+           position: "relative",
+           boxSizing: "border-box",
+           borderColor: "grey",
+           border: "4px solid #E1E1E1",
+           borderCollapse: "collapse",
+         }}
+       > 
+         <tr>{renderHeader()}</tr>
+         
+       <Problemline data={problems}></Problemline> 
+       </table>
+      )}
+    </div>
+               
               </Item>
             </Grid>
-            <Grid item xs={4}>
+            {/* <Grid item xs={4}>
               <Item>
                 <div
                   style={{ textAlign: "center", backgroundColor: "#E1E1E1" }}
@@ -133,7 +240,7 @@ const Contest: React.FC = () => {
                   <Rankingline></Rankingline>
                 </table>
               </Item>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
 
@@ -156,9 +263,26 @@ const Contest: React.FC = () => {
             of a contest.{" "}
           </li>
         </ul>
+{loaddata() ?(<div>
+<h2>Scoreboard</h2>
+<div style={{ height: 500, width: "100%" }}>
+<DataGrid
+        rows={resprows}
+       
+        columns={columns}
+        pageSize={20}
+        rowsPerPageOptions={[20]}
+    />
+</div>
+</div>):(
+<div></div>
+)}
+        
+
+
       </Container>
     </div>
   );
 };
 
-export default Contest;
+export default ContestFront;
