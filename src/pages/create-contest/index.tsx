@@ -5,19 +5,25 @@ import Button from "@mui/material/Button";
 import { Container, TablePagination } from "@mui/material";
 import TopNav from "../../components/topNav";
 
-type Contest = {
-  id: number;
-  ContestName: string;
-  ContestStartDate: Date;
-  ContestEndDate: Date;
-  contest_problemset: string[];
-};
+// type Contest = {
+//   id: number;
+//   ContestName: string;
+//   ContestStartDate: Date;
+//   ContestEndDate: Date;
+//   contest_problemset: string[];
+// };
 
-let contestID = "1";
-let contestName = 'FirstContest';
-let contestStartDate = 'Today';
-let contestEndDate = 'Tomorrow';
-let contestProblemSet = [1,2,3];
+// let contestID = "1";
+// // let contestName = 'FirstContest';
+// let contestStartDate = 'Today';
+// let contestEndDate = 'Tomorrow';
+// let contestProblemSet = [1,2,3];
+
+// const [contestID, SetcontestID] = useState("")
+// const [contestName, SetcontestName] = useState("")
+// const [contestStartDate, SetcontestStartDate] = useState("")
+// const [contestEndDate, SetcontestEndDate] = useState("")
+// const [contestProblemSet, SetcontestProblemSet] = useState("")
 
 const onChange = () => {
   console.log("changed");
@@ -48,9 +54,16 @@ interface State {
   id: number[];
   elements: number;
   page: number;
+  contestName: string;
+  contestStartDate: string;
+  contestEndDate: string;
+  contestProblems: number[];
+
 }
 
 export class CreateContest extends Component<Props, State> {
+
+
   OnClickState(idP: number, rows_size: number) {
     let newArr = [...this.state.id];
 
@@ -75,6 +88,25 @@ export class CreateContest extends Component<Props, State> {
     this.setState({ page: newPage });
   };
 
+  handleContestName = (event: unknown, name: string) => {
+    console.log(name)
+    this.setState({ contestName: name });
+  };
+
+  handleContestStartDate = (event: unknown, date: string) => {
+    this.setState({ contestStartDate: date });
+  };
+
+  handleContestEndDate = (event: unknown, date: string) => {
+
+    this.setState({ contestEndDate: date });
+  };
+
+  handleContestProblems = (event: unknown, name: number[]) => {
+    this.setState({ contestProblems: name });
+  };
+
+
   // type Contest = {
   //   id: number;
   //   ContestName: string;
@@ -83,10 +115,11 @@ export class CreateContest extends Component<Props, State> {
   //   contest_problemset: string[];
   // };
 
-  
+
 
   handleCreateButton=()=>{
-    const contestDetails = {contestID, contestName, contestStartDate, contestEndDate, contestProblemSet};
+    // const [state, setState] = useState({ contestName});
+    const contestDetails = {contestID: "1", contestNameP: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblems: this.state.id};
     console.log(contestDetails)
     console.log(JSON.stringify(contestDetails))
     fetch('http://localhost:8000/create-contest',{
@@ -104,6 +137,10 @@ export class CreateContest extends Component<Props, State> {
       id: [],
       elements: 0,
       page: 0,
+      contestName: "",
+      contestStartDate: "",
+      contestEndDate: "",
+      contestProblems: [],
     };
   }
 
@@ -140,7 +177,7 @@ export class CreateContest extends Component<Props, State> {
                   id="ContestName"
                   type="text"
                   placeholder="Contest Name"
-                  onChange={onChange}
+                  onChange={ e => this.handleContestName(e, e.target.value) }
                   required
                 />
               </div>
@@ -151,6 +188,7 @@ export class CreateContest extends Component<Props, State> {
                 type="datetime-local"
                 id="ContestStartDate"
                 name="ContestStartDate"
+                onChange={ e => this.handleContestStartDate(e, e.target.value) }
                 required
               />
               <br></br> <br></br>
@@ -160,6 +198,7 @@ export class CreateContest extends Component<Props, State> {
                 type="datetime-local"
                 id="ContestEndDate"
                 name="ContestEndDate"
+                onChange={ e => this.handleContestEndDate(e, e.target.value) }
                 required
               />
               <br></br> <br></br>
