@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import TitleInfo from "./components";
 import { UserArr } from "../../data/User";
@@ -6,9 +6,43 @@ import { Chart } from "react-google-charts";
 import logo from "./../../assets/logo.png"
 import TopNav from "../../components/topNav";
 
+interface Profile {
+	firstName: string,
+	lastName: string,
+    Country: string,
+	Organization: string,
+	Rating: number,
+	Joined: string,
+    acceptedCount: number,
+    runtimeCount: number,
+    timelimit_exceeded_count: number,
+    wrongCount: number,
+}
 
 const Profile: React.FC = () => {
-    var x = UserArr[0];
+    // var x = UserArr[0];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+    let profile = {
+        firstName: "", lastName: "test", Country: 0, Organization: 0,
+        Rating: 0 , Joined: "1-1-2001", acceptedCount: 9, wrongCount:5, timelimit_exceeded_count:0,
+        runtimeCount: 5 } as unknown as Profile
+    let [items, setItems] = useState(profile)
+    let [DataisLoaded, setDataisLoaded] = useState(false)
+    useEffect(() => {
+        fetch('http://localhost:8000/profile',{
+            method : 'POST',
+            // headers:{'content-type':'application/json'},
+            body:JSON.stringify({name})
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            setItems(json);
+            setDataisLoaded(true);
+        })
+    },[])
+
     return (
         <div>            
             <TopNav/>
@@ -17,11 +51,11 @@ const Profile: React.FC = () => {
 
                     <div className={styles["info-image"]}>
                         <div className={styles["user-stats-container"]} >
-                            <h2> {x.first_name + " " + x.last_name}</h2>
-                            <TitleInfo title="Country" value={x.country} />
-                            <TitleInfo title="Organization" value={x.organization} />
-                            <TitleInfo title="Rating" value={x.rating_value.toString()} />
-                            <TitleInfo title="Joined" value={x.joined}/>
+                            <h2> {profile.firstName + " " + profile.lastName }</h2>
+                            <TitleInfo title="Country" value={profile.Country} />
+                            <TitleInfo title="Organization" value={profile.Organization} />
+                            <TitleInfo title="Rating" value={profile.Rating.toString()} />
+                            <TitleInfo title="Joined" value={profile.Joined}/>
                         </div>
                         <div className={styles["image"]} >
                             <img className={styles["img"]} src={logo} alt="logo"/>
@@ -34,10 +68,10 @@ const Profile: React.FC = () => {
                             chartType="PieChart"
                             data={[
                                 ['Task', 'Hours per Day'],
-                                ['Accepted', x.accepted_count],
-                                ['Runtime Error', x.runtime_count],
-                                ['Time limit', x.timelimit_exceeded_count],
-                                ['Wrong Answers Count', x.wrong_count],
+                                ['Accepted', profile.acceptedCount],
+                                ['Runtime Error', profile.runtimeCount],
+                                ['Time limit', profile.timelimit_exceeded_count],
+                                ['Wrong Answers Count', profile.wrongCount],
                             ]}
                             options={{
                                 title: 'User Stats',
