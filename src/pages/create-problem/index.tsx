@@ -11,24 +11,20 @@ import TopNav from "../../components/topNav";
 
 const CreateProblem: React.FC = () => {
 
-    const [problemJSONName, setproblemJSONName] = useState("problem")
 
     const saveProblem = () => {
         const problem = {
-            name: problemName,
-            problemDesc: problemDesc,
-            category: problemCategory,
-            difficulty: problemDifficulty,
-            timeLimit: problemTimeLimit,
-            memLimit: problemMemLimit,
-            solutionCode: problemSolution
+            problemName: problemName,
+            Description: problemDesc,
+            Category: problemCategory,
+            Difficulty: problemDifficulty,
+            TimeLimit: problemTimeLimit,
+            MemoryLimit: problemMemLimit,
+            SolutionCode: problemSolution, 
+            testcases : testCases
         }
-        // const blob = new Blob([fileData], { type: "text/plain" });
-        // const url = URL.createObjectURL(blob);
-        // const link = document.createElement('a');
-        // link.download = `${problemJSONName}.json`;
-        // link.href = url;
-        // link.click();
+        console.log(problem)
+
         fetch('http://localhost:8000/create-problem',{
             method : 'POST',
             // headers:{'content-type':'application/json'},
@@ -46,21 +42,10 @@ const CreateProblem: React.FC = () => {
     const [problemMemLimit, setProblemMemLimit] = useState(0)
     const [problemSolution, setProblemSolution] = React.useState(
         `function add(a, b) {\n  return a + b;\n}`
-    );
-
-
-
-
-    const handleProblemChange = () => {
-        console.log("problemDesc: ", problemDesc)
-        console.log("problemName: ", problemName)
-        console.log("problemCategory: ", problemCategory)
-        console.log("problemDifficulty: ", problemDifficulty)
-        console.log("problemTimeLimit: ", problemTimeLimit)
-    }
+    );  
 
     const addProblem = () => {
-        // setJsonData(problem)
+        // insert to database
         saveProblem()
 
         //Empty fields or redirect to home
@@ -79,25 +64,30 @@ const CreateProblem: React.FC = () => {
         console.log("solution is tamam yasta ")
         // if success call setProblemSolution with the solution
     }
+
     const [language, setLanguage] = useState('java');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
 
     const categories = ['DP', 'Binary Search', 'Graph', 'Trees'];
     const difficulties = ['Easy', 'Medium', 'Hard'];
+    interface TestCase {
+        input: string;
+        output: string;
+    }
+
+    let testCase:TestCase={input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
 
 
-    const [testCaseJSONName, settestCaseJSONName] = useState("testcase")
+    const [testCases, setTestCases] = useState([testCase])
+    
     const saveTestCase = () => {
-        const fileData = JSON.stringify({
-            input: input,
+        console.log("before adding" , testCases)
+        testCases.push( {
+            input: input, 
             output: output
-        });
-        const blob = new Blob([fileData], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.download = `${testCaseJSONName}.json`;
-        link.href = url;
-        link.click();
+        } )
+        console.log(testCases)
+        
     }
 
     const [input, setInput] = useState("")
@@ -115,19 +105,17 @@ const CreateProblem: React.FC = () => {
             
             <TopNav />
             <h2>Enter Problem Name:</h2>
-            <TextField id="outlined-basic" fullWidth={true} label="Problem Name" multiline={true} variant="filled" onChange={event => setProblemName(event.target.value)} />
+            <TextField id="outlined-basic"  required fullWidth={true} label="Problem Name" multiline={true} variant="filled" onChange={event => setProblemName(event.target.value)} />
             <h2>Enter Problem Description:</h2>
-            <TextField id="outlined-basic" minRows={10} fullWidth={true} label="Problem description" multiline={true} variant="filled" onChange={event => setProblemDesc(event.target.value)} />
+            <TextField id="outlined-basic" required minRows={10} fullWidth={true} label="Problem description" multiline={true} variant="filled" onChange={event => setProblemDesc(event.target.value)} />
             <h2>Choose problem category:</h2>
-            <Dropdown options={categories} onChange={(problemCategory) => { setProblemCategory(problemCategory.value) }} value={problemCategory} placeholder="Select a category" />
+            <Dropdown options={categories}  onChange={(problemCategory) => { setProblemCategory(problemCategory.value) }} value={problemCategory} placeholder="Select a category" />
             <h2>Choose problem difficulty:</h2>
             <Dropdown options={difficulties} onChange={(problemDifficulty) => { setProblemDifficulty(problemDifficulty.value) }} value={problemDifficulty} placeholder="Select a difficulty" />
             <h2>Enter Problem Time Limit:</h2>
-            <input id="outlined-basic"  onChange={event => setProblemTimeLimit(event.target.valueAsNumber)} />
+            <input id="outlined-basic"  required onChange={event => setProblemTimeLimit(event.target.valueAsNumber)} />
             <h2>Enter Problem Memory Limit:</h2>
-            <input id="outlined-basic" onChange={event => setProblemMemLimit(event.target.valueAsNumber)} />
-
-            <Button type="submit" onClick={handleProblemChange} style={{ float: 'right' }} variant="text">Submit</Button>
+            <input id="outlined-basic" required onChange={event => setProblemMemLimit(event.target.valueAsNumber)} />
 
             <div>
                 <h2>Enter Problem Solution:</h2>
@@ -141,6 +129,7 @@ const CreateProblem: React.FC = () => {
                     placeholder="Please enter or paste your code."
                     onChange={(evn) => setProblemSolution(evn.target.value)}
                     padding={15}
+                    required
                     style={{
                         fontSize: 12,
                         backgroundColor: "#f5f5f5",

@@ -119,7 +119,7 @@ export class CreateContest extends Component<Props, State> {
 
   handleCreateButton=()=>{
     // const [state, setState] = useState({ contestName});
-    const contestDetails = {contestID: "1", contestNameP: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblems: this.state.id};
+    const contestDetails = {contestName: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblemSet: this.state.id};
     console.log(contestDetails)
     console.log(JSON.stringify(contestDetails))
     fetch('http://localhost:8000/create-contest',{
