@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React,{Dispatch, SetStateAction, useEffect, useState} from "react";
 import 'react-dropdown/style.css';
 
 // import Editor from "react-simple-code-editor";
@@ -7,16 +7,17 @@ import Dropdown from 'react-dropdown';
 
 import Container from '@mui/material/Container';
 
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./styles.module.css";
 import TopNav from "../../components/topNav";
 import Problem from "../problem";
 
-const Submit: React.FC = () =>{
+const Submit: React.FC= () =>{
     const urlParams = new URLSearchParams(window.location.search);
     const problemId = urlParams.get("id");
     let p :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
     const [problem, setProblem] = useState(p);
+    const navigate = useNavigate()
     useEffect(()=>{
         fetch('http://localhost:8000/submit/problemid={id}',{
             method : 'GET',
@@ -47,11 +48,12 @@ const Submit: React.FC = () =>{
 
 
       const handleClick=()=>{
-          const problemid=problem.problemId;
+        const problemid=problem.problemId;
         const user ={language,code,problemid};
         fetch('http://localhost:8000/submit',{
             method : 'POST',
-            headers:{'content-type':'application/json'},
+            // headers:{'content-type':'application/json'},
+            credentials: 'include',
             body:JSON.stringify(user)
         }).then(()=>{
             console.log("done");

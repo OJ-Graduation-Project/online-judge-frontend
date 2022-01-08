@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import DenseTable from "./components/table"
 import { Button } from "@mui/material";
@@ -8,6 +8,8 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import CodeSnippet from "../../components/CodeSnippet";
 import Container from '@mui/material/Container';
+import { Navigate, useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 interface SubmissionRequest {
 	problemID: number,
@@ -53,10 +55,13 @@ interface Submission {
 	failedTestCase :FailedTestCase,
 }
 
+const cookies = new Cookies();
+
 const Problem: React.FC = () =>{
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
-
+    const navigate = useNavigate();
+    const cookies = new Cookies();
     let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
     let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <iostream>
         using namespace std;
@@ -107,30 +112,37 @@ const Problem: React.FC = () =>{
              return 0;
         }
         `);
-        const closeVerdict=()=>{
-            setSubmissionIsLoaded(false);
-        }
+    const closeVerdict=()=>{
+        setSubmissionIsLoaded(false);
+    }
     const handleSubmit=()=>{
-        const problemid=problem.problemId;
-        const submissionRequest:SubmissionRequest = {
-            problemID: problem.problemId,
-            ownerID: 0,
-            language: language,
-            code: code,
-            submissionId: 18,
-            date: "1/1/2022", //to be changed
+        let hasCookie = cookies.get("cookie")
+        if(!hasCookie){
+            navigate("/login")
         }
-        fetch('http://localhost:8000/submit',{
-            method : 'POST',
-            headers:{'content-type':'application/json'},
-            body:JSON.stringify(submissionRequest)
-        })
-        .then((res) => res.json())
-        .then((json)=>{
-            console.log(json);
-            setSubmission(json);
-            setSubmissionIsLoaded(true);
-        })
+        else{
+            const problemid=problem.problemId;
+            const submissionRequest:SubmissionRequest = {
+                problemID: problem.problemId,
+                ownerID: 0,
+                language: language,
+                code: code,
+                submissionId: 18,
+                date: "1/1/2022", //to be changed
+            }
+            fetch('http://localhost:8000/submit',{
+                method : 'POST',
+                // headers:{'content-type':'application/json'},
+                credentials:'include',
+                body:JSON.stringify(submissionRequest)
+            })
+            .then((res) => res.json())
+            .then((json)=>{
+                console.log(json);
+                setSubmission(json);
+                setSubmissionIsLoaded(true);
+            })
+        }
     }
     if (!problemIsLoaded) return (
         <div>
