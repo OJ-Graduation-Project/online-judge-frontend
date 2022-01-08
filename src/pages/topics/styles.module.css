@@ -1,0 +1,10 @@
+.table {
+  margin: 25px;
+  padding-top: 20px;
+  border-bottom: 2px outset #eeeeee;
+}
+
+.header {
+  color: #3a8ac7;
+  margin: auto;
+}
