@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import TitleInfo from "./components";
 import { UserArr } from "../../data/User";
 import { Chart } from "react-google-charts";
 import logo from "./../../assets/logo.png"
 import TopNav from "../../components/topNav";
+import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie'
+const cookies = new Cookies();
 
 interface Profile {
 	firstName: string,
@@ -21,6 +24,7 @@ interface Profile {
 
 const Profile: React.FC = () => {
     // var x = UserArr[0];
+    const navigate = useNavigate()
 
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
@@ -31,6 +35,11 @@ const Profile: React.FC = () => {
     let [items, setItems] = useState(profile)
     let [DataisLoaded, setDataisLoaded] = useState(false)
     useEffect(() => {
+        let hasCookie = cookies.get("cookie")
+        console.log("C IS: "+ hasCookie)
+        if(!hasCookie){
+            navigate("/login");
+        }
         fetch('http://localhost:8000/profile',{
             method : 'POST',
             // headers:{'content-type':'application/json'},
