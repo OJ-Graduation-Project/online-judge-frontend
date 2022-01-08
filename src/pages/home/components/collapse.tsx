@@ -1,7 +1,7 @@
 import React from "react";
 import useCollapse from "react-collapsed";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 import styles from "../../home/styles.module.css";
+import Link from "@mui/material/Link";
 
 function Collapse() {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
@@ -9,13 +9,13 @@ function Collapse() {
   categories = [
     "Array",
     "String",
-    "Hash table",
+    "Hash Table",
     "Dynamic Programming",
     "Maths",
-    "Depth-First search",
+    "Depth First search",
     "Sorting",
     "Greedy",
-    "Breadth-First Search",
+    "Breadth First Search",
     "Tree",
     "Binary Tree",
     "Binary Search",
@@ -40,11 +40,14 @@ function Collapse() {
       <section {...getCollapseProps()}>
         <ul className={styles["ul"]}>
           {categories.map((category) => (
-            <li>
-              <Link className={styles["li"]} to={"problem/" + category}>
-                {category}
-              </Link>
-            </li>
+            <Link
+              component="button"
+              onClick={(event) =>
+                (window.location.href = "/topic/?name=" + category)
+              }
+            >
+              {category}
+            </Link>
           ))}
         </ul>
       </section>
