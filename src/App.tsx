@@ -15,6 +15,7 @@ import TopNav from "./components/topNav";
 
 import AllContests from "./pages/all-contests";
 import Registration from "./pages/registration";
+import UserProblems from "./pages/user-problems";
 
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
           <Route path="/create-contest" element={<CreateContest />} />
           <Route path="/all-contests/contest/:id" element={<ContestFront />} />
           <Route path="/scoreboard" element={<Scoreboard />} />
-          <Route path="/user-submissions" element={<UserSubmissions />} />
+          <Route path="/user-submissions/:id" element={<UserSubmissions />} />
+          <Route path="/user-problems/:id" element={<UserProblems />} />
 
           <Route path="/all-contests" element={<AllContests />} />
           <Route path="/all-contests/Registration" element={<Registration />} />
