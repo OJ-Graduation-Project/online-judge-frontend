@@ -22,7 +22,7 @@ const Home: React.FC = () => {
     .then((json) => {
         setProblems(json);
     })
-},[])
+},[searchValue])
 
   return (
     <div className={styles["title"]}>

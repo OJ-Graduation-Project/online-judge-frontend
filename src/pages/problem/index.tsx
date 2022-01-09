@@ -112,6 +112,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
 
     useEffect(() => {
         console.log(contestid);
+        console.log(isContest)
        // console.log(submission)        //console.log(submission.accepted);
     })
 
@@ -218,12 +219,12 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
                 <div className = "header" >
                     <h3>Verdict: </h3>
                     {submission.accepted && <h3 style = {{color: "green"}}> Accepted</h3>}
-                    {/* {!submission.accepted && <h3 style = {{color: "red"}}> {submission.failedTestCase.reason}</h3>} */}
-                    {(!submission.accepted&&Object.keys(submission.failedTestCase).length==0) && <h3 style = {{color: "red"}}> Wrong</h3>}
+                    {!submission.accepted && <h3 style = {{color: "red"}}> {submission.failedTestCase.reason}</h3>}
+                    {/* {(!submission.accepted) && <h3 style = {{color: "red"}}> Wrong</h3>} */}
 
                 </div>
                 <CodeSnippet code= {submission.submittedCode} language = {submission.language}/>
-                {(!submission.accepted&&(Object.keys(submission.failedTestCase).length==0)) && <div  className = "failedTestCase">
+                {(!submission.accepted&&!isContest) && <div  className = "failedTestCase">
                         <h3>Test case #{submission.failedTestCase.testCase.testCaseNumber}</h3> <hr />
                         <h4>Input: </h4><h4>  {submission.failedTestCase.testCase.input}</h4> <hr /> 
                         <h4>Output:   </h4><h4 style = {{color: "red"}}>{submission.failedTestCase.userOutput}</h4> <hr />

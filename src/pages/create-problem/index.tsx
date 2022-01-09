@@ -104,6 +104,7 @@ const CreateProblem: React.FC = () => {
         <div>
             
             <TopNav />
+            <Container>
             <h2>Enter Problem Name:</h2>
             <TextField id="outlined-basic"  required fullWidth={true} label="Problem Name" multiline={true} variant="filled" onChange={event => setProblemName(event.target.value)} />
             <h2>Enter Problem Description:</h2>
@@ -149,6 +150,7 @@ const CreateProblem: React.FC = () => {
                 <Button style={{ float: 'right' }} variant="text" onClick={addTestCase}> Add Test Case</Button>
             </div>
             <Button style={{ float: 'right' }} variant="text" onClick={addProblem}>Submit Problem</Button>
+            </Container>
         </div>
     );
 }

@@ -6,7 +6,7 @@ import TopNav from "../../components/topNav";
 const SignUp: React.FC = () => {
   return (
     <div className={styles["SignUp"]}>
-      <TopNav></TopNav>
+      {/* <TopNav></TopNav> */}
       <SignUpForm/>
     </div>
   )

@@ -30,7 +30,7 @@ const Login: React.FC = () =>{
 
     return(
         <div>
-            <TopNav></TopNav>
+            
             <div className={styles["Login"]}>
                 <div className={styles["icon"]}>
                     <div className={styles["icon_class"]}>
