@@ -2,10 +2,11 @@ import React from 'react';
 import styles from "./styles.module.css";
 import { Button, TextField, Divider } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 const SignUpForm=()=>{
 
+    const navigate = useNavigate()
 
     const validateEmail = (email:string) => {
         let regex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
@@ -27,6 +28,7 @@ const SignUpForm=()=>{
         .then((json) => {
             setUserExists(json)
             console.log(json)
+            navigate("/login")
         })
     }
  

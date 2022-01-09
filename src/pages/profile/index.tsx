@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import TitleInfo from "./components";
 import { Chart } from "react-google-charts";
 import logo from "./../../assets/logo.png"
 import TopNav from "../../components/topNav";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+
+import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie'
+const cookies = new Cookies();
 
 
 interface Profile {
@@ -33,6 +37,10 @@ const Profile: React.FC = () => {
     // const urlParams = new URLSearchParams(window.location.search);
     const userID = 1629;
 
+    // var x = UserArr[0];
+    const navigate = useNavigate()
+
+
     let p: Profile = {
         firstName: "", lastName: "test", country: "", organization: "",
         rating: 0, registrationDate: "1-1-2001", acceptedCount: 9, wrongCount: 5, timelimit_exceeded_count: 0,
@@ -45,6 +53,15 @@ const Profile: React.FC = () => {
     useEffect(() => {
         fetch('http://localhost:8000/profile', {
             method: 'POST',
+            body: JSON.stringify({userId: userID })
+        let hasCookie = cookies.get("cookie")
+        console.log("C IS: "+ hasCookie)
+        if(!hasCookie){
+            navigate("/login");
+        }
+        fetch('http://localhost:8000/profile',{
+            method : 'POST',
+            // headers:{'content-type':'application/json'},
             body: JSON.stringify({userId: userID })
         })
             .then((res) => res.json())

@@ -17,7 +17,7 @@ interface Problem {
 	description: string,
 	timeLimit: string,
 	memoryLimit: string,
-	Difficulty: string,
+	difficulty: string,
 	testcases: Testcase[],
 	problemSubmissionsId: []
 }
@@ -57,9 +57,9 @@ export default function Problemline(props:{
                   {row.problemId}
                 </TableCell>
                 <TableCell  style={{fontSize:'17px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}} align="left">
-                    <a href=''>{row.problemName}</a> </TableCell>
+                    <a href ={window.location.href+'/problem/'+row.problemId}>{row.problemName}</a> </TableCell>
                 <TableCell style={{fontSize:'10px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}} align="center">standard input/output</TableCell>
-                <TableCell style={{fontSize:'15px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}}  align="center">{row.Difficulty}</TableCell>
+                <TableCell style={{fontSize:'15px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}}  align="center">{row.difficulty}</TableCell>
               </TableRow>
             ))}
           </TableBody>
