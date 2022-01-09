@@ -55,6 +55,7 @@ const Profile: React.FC = () => {
         }
         fetch('http://localhost:8000/profile',{
             method : 'POST',
+            credentials: 'include',
             // headers:{'content-type':'application/json'},
             body:JSON.stringify({userId: userID })
         })
