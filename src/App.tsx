@@ -15,7 +15,6 @@ import Home from "./pages/home";
 import Topics from "./pages/topics";
 import AllContests from "./pages/all-contests";
 import Registration from "./pages/registration";
-import UserProblems from "./pages/user-problems";
 
 function App() {
   return (
@@ -37,8 +36,7 @@ function App() {
         <Route path="/create-contest" element={<CreateContest />} />
         <Route path="/all-contests/contest/:id" element={<ContestFront />} />
         <Route path="/scoreboard" element={<Scoreboard />} />
-        <Route path="/user-submissions/:id" element={<UserSubmissions />} />
-        <Route path="/user-problems/:id" element={<UserProblems />} />
+        <Route path="/user-submissions" element={<UserSubmissions />} />
         <Route path="/all-contests" element={<AllContests />} />
         <Route path="/all-contests/Registration" element={<Registration />} />
         <Route path="/topic" element={<Topics />} />
