@@ -8,7 +8,7 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import CodeSnippet from "../../components/CodeSnippet";
 import Container from '@mui/material/Container';
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Cookies from 'universal-cookie';
 
 interface SubmissionRequest {
@@ -17,7 +17,9 @@ interface SubmissionRequest {
 	language: string,
 	code: string,
 	submissionId: number,
-	date: string ,
+    date: string ,
+    isContest:boolean,
+    contestid:string
 }
 interface Problem {
     problemId: number,
@@ -51,15 +53,18 @@ interface Submission {
 	submittedCode:string,  
 	time:string, 
 	space:string,
-	accepted:boolean,
+	accepted:number,
 	failedTestCase :FailedTestCase,
 }
 
 const cookies = new Cookies();
 
-const Problem: React.FC = () =>{
+const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
+
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
+    //For contest
+    const { contestid,problemid } = useParams()
     const navigate = useNavigate();
     const cookies = new Cookies();
     let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
@@ -74,13 +79,24 @@ const Problem: React.FC = () =>{
              cout << x+y << endl;
              return 0;
         }
-        `,time: "",space: "",accepted: false,failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
+        `,time: "",space: "",accepted: 0,failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
     }
     let [problem, setProblem] = useState(p)
     let [problemIsLoaded, setProblemIsLoaded] = useState(false)
     let [submissionIsLoaded, setSubmissionIsLoaded] = useState(false)
+    let [submissionLoadedContest,setSubmissionLoadedContest]=useState(false)
     let [submission, setSubmission] = useState(s);
     useEffect(() => {
+        if(isContest){
+            fetch('http://localhost:8000/all-contests/contest/'+contestid+'/problem/'+problemid,{
+                method:'GET',
+            }).then((res) => res.json())
+            .then((json) => {
+                setProblem(json);
+                setProblemIsLoaded(true);
+
+            })
+        }else{
         fetch('http://localhost:8000/problem',{
             method : 'POST',
             // headers:{'content-type':'application/json'},
@@ -91,11 +107,12 @@ const Problem: React.FC = () =>{
             setProblem(json);
             setProblemIsLoaded(true);
         })
+    }
     },[])
 
     useEffect(() => {
-        console.log(problem)
-        
+        console.log(contestid);
+       // console.log(submission)        //console.log(submission.accepted);
     })
 
     const [language, setLanguage] = useState('cpp');
@@ -129,6 +146,8 @@ const Problem: React.FC = () =>{
                 code: code,
                 submissionId: 18,
                 date: "1/1/2022", //to be changed
+                isContest:isContest,
+                contestid:contestid,
             }
             fetch('http://localhost:8000/submit',{
                 method : 'POST',
@@ -141,6 +160,9 @@ const Problem: React.FC = () =>{
                 console.log(json);
                 setSubmission(json);
                 setSubmissionIsLoaded(true);
+                if(isContest){
+                    setSubmissionLoadedContest(true);
+                }
             })
         }
     }
@@ -196,10 +218,12 @@ const Problem: React.FC = () =>{
                 <div className = "header" >
                     <h3>Verdict: </h3>
                     {submission.accepted && <h3 style = {{color: "green"}}> Accepted</h3>}
-                    {!submission.accepted && <h3 style = {{color: "red"}}> {submission.failedTestCase.reason}</h3>}
+                    {/* {!submission.accepted && <h3 style = {{color: "red"}}> {submission.failedTestCase.reason}</h3>} */}
+                    {(!submission.accepted&&Object.keys(submission.failedTestCase).length==0) && <h3 style = {{color: "red"}}> Wrong</h3>}
+
                 </div>
                 <CodeSnippet code= {submission.submittedCode} language = {submission.language}/>
-                {!submission.accepted && <div  className = "failedTestCase">
+                {(!submission.accepted&&(Object.keys(submission.failedTestCase).length==0)) && <div  className = "failedTestCase">
                         <h3>Test case #{submission.failedTestCase.testCase.testCaseNumber}</h3> <hr />
                         <h4>Input: </h4><h4>  {submission.failedTestCase.testCase.input}</h4> <hr /> 
                         <h4>Output:   </h4><h4 style = {{color: "red"}}>{submission.failedTestCase.userOutput}</h4> <hr />

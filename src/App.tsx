@@ -27,7 +27,10 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/submit/problemid={id}" element={<Submit />} />
         <Route path="/submit" element={<Submit />} />
-        <Route path="/problem" element={<Problem />} />
+
+        <Route path="/problem" element={<Problem isContest={false}/>} />
+        <Route path="/all-contests/contest/:contestid/problem/:problemid" element={<Problem isContest={true}/>} />
+
         <Route path="/create-problem" element={<CreateProblem />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/create-contest" element={<CreateContest />} />

@@ -18,21 +18,21 @@ function TopNav() {
         <NavLink to="/profile">
           <li>My Profile</li>
         </NavLink>
-        <NavLink to="/submit">
+        {/* <NavLink to="/submit">
           <li>Submit</li>
-        </NavLink>
-        <NavLink to="/submission">
+        </NavLink> */}
+        {/* <NavLink to="/submission">
           <li>Submission</li>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/create-problem">
           <li>Create a problem</li>
         </NavLink>
-        <NavLink to="/scoreboard">
+        {/* <NavLink to="/scoreboard">
           <li>View Scoreboard</li>
-        </NavLink>
-        <NavLink to="/contest">
+        </NavLink> */}
+        {/* <NavLink to="/contest">
           <li>Contest 1</li>
-        </NavLink>
+        </NavLink> */}
 
       </S.Ul>
     </>
