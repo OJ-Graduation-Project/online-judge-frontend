@@ -6,8 +6,8 @@ import logo from "./../../assets/logo.png"
 import TopNav from "../../components/topNav";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie'
-const cookies = new Cookies();
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+const cookies = new Cookies();
 
 
 interface Profile {
