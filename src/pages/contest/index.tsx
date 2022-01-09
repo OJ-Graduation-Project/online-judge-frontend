@@ -33,7 +33,7 @@ interface Problem {
 	description: string,
 	timeLimit: string,
 	memoryLimit: string,
-	Difficulty: string,
+	difficulty: string,
 	testcases: Testcase[],
 	problemSubmissionsId: []
 }
@@ -91,7 +91,7 @@ const renderRankHeader = () => {
 
 const ContestFront: React.FC = () => {
   const { id } = useParams()
-  let probs :Problem = {problemId: 0, problemName:"",Difficulty:"",description:"",memoryLimit:"",numberOfSubmissions:0,problemSubmissionsId:[],testcases:[],timeLimit:"",writerId:0};
+  let probs :Problem = {problemId: 0, problemName:"",difficulty:"",description:"",memoryLimit:"",numberOfSubmissions:0,problemSubmissionsId:[],testcases:[],timeLimit:"",writerId:0};
   const [problems, setProblems] = useState([probs]);
   const [loading, setLoading] = useState(true)
   const [loadingScore, setLoadingScore] = useState(true)
