@@ -9,19 +9,20 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import TopNav from "../../components/topNav";
 
+
 const CreateProblem: React.FC = () => {
 
 
     const saveProblem = () => {
         const problem = {
             problemName: problemName,
-            Description: problemDesc,
-            Category: problemCategory,
-            Difficulty: problemDifficulty,
-            TimeLimit: problemTimeLimit,
-            MemoryLimit: problemMemLimit,
-            SolutionCode: problemSolution, 
-            testcases : testCases
+            Description: description,
+            Category: problemCategory,//
+            Difficulty: difficulty,
+            TimeLimit: timeLimit,
+            MemoryLimit: memoryLimit,
+            SolutionCode: solutionCode, //
+            testcases : testcases
         }
         console.log(problem)
 
@@ -35,12 +36,12 @@ const CreateProblem: React.FC = () => {
     }
 
     const [problemName, setProblemName] = useState("")
-    const [problemDesc, setProblemDesc] = useState("")
+    const [description, setProblemDesc] = useState("")
     const [problemCategory, setProblemCategory] = useState("")
-    const [problemDifficulty, setProblemDifficulty] = useState("")
-    const [problemTimeLimit, setProblemTimeLimit] = useState(0)
-    const [problemMemLimit, setProblemMemLimit] = useState(0)
-    const [problemSolution, setProblemSolution] = React.useState(
+    const [difficulty, setProblemDifficulty] = useState("")
+    const [timeLimit, setProblemTimeLimit] = useState(0)
+    const [memoryLimit, setProblemMemLimit] = useState(0)
+    const [solutionCode, setProblemSolution] = React.useState(
         `function add(a, b) {\n  return a + b;\n}`
     );  
 
@@ -67,26 +68,30 @@ const CreateProblem: React.FC = () => {
 
     const [language, setLanguage] = useState('java');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
-
+    var testCaseIndex = 1;
     const categories = ['DP', 'Binary Search', 'Graph', 'Trees'];
     const difficulties = ['Easy', 'Medium', 'Hard'];
     interface TestCase {
+        testCaseNumber: number;
         input: string;
         output: string;
     }
 
-    let testCase:TestCase={input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
+    let testCase:TestCase={testCaseNumber: 0, input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
 
 
-    const [testCases, setTestCases] = useState([testCase])
+    const [testcases, setTestCases] = useState([testCase])
     
     const saveTestCase = () => {
-        console.log("before adding" , testCases)
-        testCases.push( {
+        console.log("before adding" , testcases)
+
+        testcases.push( {
+            testCaseNumber: testCaseIndex,
             input: input, 
             output: output
         } )
-        console.log(testCases)
+        testCaseIndex = testCaseIndex + 1;
+        console.log(testcases)
         
     }
 
@@ -112,7 +117,7 @@ const CreateProblem: React.FC = () => {
             <h2>Choose problem category:</h2>
             <Dropdown options={categories}  onChange={(problemCategory) => { setProblemCategory(problemCategory.value) }} value={problemCategory} placeholder="Select a category" />
             <h2>Choose problem difficulty:</h2>
-            <Dropdown options={difficulties} onChange={(problemDifficulty) => { setProblemDifficulty(problemDifficulty.value) }} value={problemDifficulty} placeholder="Select a difficulty" />
+            <Dropdown options={difficulties} onChange={(problemDifficulty) => { setProblemDifficulty(problemDifficulty.value) }} value={difficulty} placeholder="Select a difficulty" />
             <h2>Enter Problem Time Limit:</h2>
             <input id="outlined-basic"  required onChange={event => setProblemTimeLimit(event.target.valueAsNumber)} />
             <h2>Enter Problem Memory Limit:</h2>
@@ -125,7 +130,7 @@ const CreateProblem: React.FC = () => {
                 </div>
                 <hr />
                 <CodeEditor
-                    value={problemSolution}
+                    value={solutionCode}
                     language={language}
                     placeholder="Please enter or paste your code."
                     onChange={(evn) => setProblemSolution(evn.target.value)}

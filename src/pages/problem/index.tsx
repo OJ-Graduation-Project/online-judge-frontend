@@ -68,17 +68,15 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     const navigate = useNavigate();
     const cookies = new Cookies();
     let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
-    let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <iostream>
-        using namespace std;
-        
-        int main()
-        {
-             int x,y;
-             cin>>x>>y;
-             
-             cout << x+y << endl;
-             return 0;
-        }
+    let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <bits/stdc++.h>
+    using namespace std;
+    
+    int main()
+    {
+        //write your code here
+
+        return 0;
+    }
         `,time: "",space: "",accepted: 0,failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
     }
     let [problem, setProblem] = useState(p)
@@ -118,18 +116,17 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
 
     const [language, setLanguage] = useState('cpp');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
-    const [code, setCode] = React.useState(`#include <iostream> 
+    const [code, setCode] = React.useState(
+    `
+    #include <bits/stdc++.h>
     using namespace std;
+    
+    int main()
+    {
+        //write your code here
         
-        int main()
-        {
-             int x,y;
-             cin>>x>>y;
-             
-             cout << x+y << endl;
-             return 0;
-        }
-        `);
+        return 0;
+    }`);
     const closeVerdict=()=>{
         setSubmissionIsLoaded(false);
     }
