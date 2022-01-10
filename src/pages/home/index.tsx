@@ -10,7 +10,7 @@ import Problem from "../problem";
 const Home: React.FC = () => {
   let problem :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
   const [problems, setProblems] = useState([problem]);
-
+  
   const urlParams = new URLSearchParams(window.location.search);
   const searchValue = urlParams.get("search");
   useEffect(() => {
@@ -20,7 +20,9 @@ const Home: React.FC = () => {
     })
     .then((res) => res.json())
     .then((json) => {
+      if(json){
         setProblems(json);
+      }
     })
 },[searchValue])
 

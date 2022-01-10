@@ -1,5 +1,8 @@
 import * as S from "./styles";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import Cookie from "universal-cookie"
+
+const cookie = new Cookie();
 
 function TopNav() {
   return (
@@ -10,11 +13,11 @@ function TopNav() {
           <li>Problems</li>
         </NavLink>
         <NavLink to="/all-contests">
-          <li>contests</li>
+          <li>Contests</li>
         </NavLink>
-        <NavLink to="/create-contest">
+        {cookie.get("cookie")&&<NavLink to="/create-contest">
           <li>Create Contest</li>
-        </NavLink>
+        </NavLink>}
         <NavLink to="/profile">
           <li>My Profile</li>
         </NavLink>
@@ -24,9 +27,15 @@ function TopNav() {
         {/* <NavLink to="/submission">
           <li>Submission</li>
         </NavLink> */}
-        <NavLink to="/create-problem">
+       {cookie.get("cookie")&& <NavLink to="/create-problem">
           <li>Create a problem</li>
-        </NavLink>
+        </NavLink>}
+        {cookie.get("cookie")&&<NavLink to="/logout">
+          <li>Logout</li>
+        </NavLink>}
+        {!cookie.get("cookie")&&<NavLink to="/login">
+          <li>Login</li>
+        </NavLink>}
         {/* <NavLink to="/scoreboard">
           <li>View Scoreboard</li>
         </NavLink> */}
