@@ -15,7 +15,7 @@ import Problem from "../problem";
 const Submit: React.FC= () =>{
     const urlParams = new URLSearchParams(window.location.search);
     const problemId = urlParams.get("id");
-    let p :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+    let p :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
     const [problem, setProblem] = useState(p);
     const navigate = useNavigate()
     useEffect(()=>{
@@ -48,7 +48,7 @@ const Submit: React.FC= () =>{
 
 
       const handleClick=()=>{
-        const problemid=problem.problemId;
+        const problemid=problem._id;
         const user ={language,code,problemid};
         fetch('http://localhost:8000/submit',{
             method : 'POST',

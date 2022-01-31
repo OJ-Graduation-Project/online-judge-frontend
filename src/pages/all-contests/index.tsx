@@ -5,7 +5,7 @@ import TopNav from "../../components/topNav";
 import Contest from "../all-contests/components/interface"
 const AllContests: React.FC = () => {
 
-  let contest :Contest = {contestId: 0, contestName:"",contestProblemsId:[],duration:"",numberOfRegisteredUsers:0,problemsScore:[],startTime:"",wrongSubmissionCost:0}
+  let contest :Contest = {_id: 0, contestName:"",contestProblemsId:[],duration:"",numberOfRegisteredUsers:0,problemsScore:[],startTime:"",wrongSubmissionCost:0}
   const [contests, setContests] = useState([contest]);
   const [loading, setLoading] = useState(true)
 useEffect(() => {

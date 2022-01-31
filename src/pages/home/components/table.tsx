@@ -35,7 +35,7 @@ export default function DataTable(props:{
 
   for (let i = 0; i < d.length; i++) {
     rows[i] = {
-      id: d[i].problemId,
+      id: d[i]._id,
       name: d[i].problemName,
       difficulty: d[i].Difficulty,
       status: "to be discussed ",

@@ -63,7 +63,7 @@ export default function DataTable(props:{
   for (let i = 0; i < props.data.length; i++) {
     rows[i] = {
       name: props.data[i].contestName,
-      id:props.data[i].contestId,
+      id:props.data[i]._id,
       writers: "tbd",
       start: props.data[i].startTime,
       length: props.data[i].duration,

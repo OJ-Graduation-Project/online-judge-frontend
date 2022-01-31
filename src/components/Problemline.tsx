@@ -10,7 +10,7 @@ interface Testcase {
 }
 
 interface Problem {
-    problemId: number,
+    _id: string,
 	problemName: string,
 	numberOfSubmissions: number,
 	writerId: number,
@@ -54,10 +54,11 @@ export default function Problemline(props:{
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell  style={{fontSize:'15px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}} align="center" component="th" scope="row">
-                  {row.problemId}
+                  {/* {row.problemId} */}
+                  {index+1}
                 </TableCell>
                 <TableCell  style={{fontSize:'17px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}} align="left">
-                    <a href ={window.location.href+'/problem/'+row.problemId}>{row.problemName}</a> </TableCell>
+                    <a href ={window.location.href+'/problem/'+row._id}>{row.problemName}</a> </TableCell>
                 <TableCell style={{fontSize:'10px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}} align="center">standard input/output</TableCell>
                 <TableCell style={{fontSize:'15px',border:'4px solid #E1E1E1',borderCollapse:'collapse'}}  align="center">{row.difficulty}</TableCell>
               </TableRow>

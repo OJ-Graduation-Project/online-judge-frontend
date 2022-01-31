@@ -1,5 +1,5 @@
 interface Contest {
-    contestId: number,
+    _id: number,
     contestName: string,
     contestProblemsId: number[],
     duration: string,
