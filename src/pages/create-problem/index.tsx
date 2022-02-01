@@ -80,7 +80,7 @@ const CreateProblem: React.FC = () => {
     let testCase:TestCase={testCaseNumber: 0, input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
 
 
-    const [testcases, setTestCases] = useState([testCase])
+    const [testcases, setTestCases] = useState([])
     
     const saveTestCase = () => {
         console.log("before adding" , testcases)
