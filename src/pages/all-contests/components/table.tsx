@@ -39,7 +39,7 @@ const columns: GridColDef[] = [
           component="button"
           onClick={() =>
             (window.location.href =
-              "/all-contests/Registration/?contest-name=" + cellValues.row.id)
+              "/all-contests/Registration/?contest-name=" + cellValues.row.name)
           }
         >
           Register
