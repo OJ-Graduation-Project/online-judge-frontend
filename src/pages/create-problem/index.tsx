@@ -66,14 +66,14 @@ const CreateProblem: React.FC = () => {
     const [language, setLanguage] = useState('java');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
     var testCaseIndex = 1;
-    var problemIdIndex = 1;
+    var problemIdIndex = 0;
     const categories = ['DP', 'Binary Search', 'Graph', 'Trees'];
     const difficulties = ['Easy', 'Medium', 'Hard'];
 
     let testCase:TestCase={problemId: 0, testCaseNumber: 0, input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
 
 
-    const [testcases, setTestCases] = useState([testCase])
+    const [testcases, setTestCases] = useState([])
     
     const saveTestCase = () => {
         console.log("before adding" , testcases)
@@ -85,7 +85,6 @@ const CreateProblem: React.FC = () => {
             output: output
         } )
         testCaseIndex = testCaseIndex + 1;
-        problemIdIndex = problemIdIndex + 1;
         console.log(testcases)
         
     }
