@@ -62,7 +62,7 @@ const renderRankHeader = () => {
 
 const ContestFront: React.FC = () => {
   const { id } = useParams()
-  let probs :Problem = {problemId: 0, problemName:"",difficulty:"",description:"",memoryLimit:"",numberOfSubmissions:0,problemSubmissionsId:[],testcases:[],timeLimit:"",writerId:0};
+  let probs :Problem = {_id: 0, problemName:"",difficulty:"",description:"",memoryLimit:"",numberOfSubmissions:0,problemSubmissionsId:[],testcases:[],timeLimit:"",writerId:0};
   const [problems, setProblems] = useState([probs]);
   const [loading, setLoading] = useState(true)
   const [loadingScore, setLoadingScore] = useState(true)

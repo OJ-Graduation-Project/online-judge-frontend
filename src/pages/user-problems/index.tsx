@@ -25,7 +25,7 @@ const UserProblems: React.FC = () => {
     timeLimit: "",
     memoryLimit: "",
     difficulty: "",
-    problemId: 0,
+    _id: 0,
     writerId: 0,
     testcases: [],
     problemSubmissionsId: []
