@@ -39,7 +39,7 @@ const UserSubmissions: React.FC = () => {
         output: ""
       }
     },
-    submissionId: 0,
+    _id: 0,
     problemId: 0,
     userId: 0
   }

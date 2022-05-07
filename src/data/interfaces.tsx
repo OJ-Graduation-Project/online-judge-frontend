@@ -29,7 +29,7 @@ export interface scoreResponse{
 }
 
 export interface Contest {
-    contestId: number,
+    _id: number,
     contestName: string,
     contestProblemsId: number[],
     duration: string,
@@ -57,7 +57,7 @@ export interface FailedTestCase {
 }
 
 export interface Submission {
-	submissionId:number,    
+	_id:number,    
 	problemId:number,         
 	userId:number,        
     date:string,         
