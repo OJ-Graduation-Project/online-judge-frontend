@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import styles from "./styles.module.css";
 import { Button, TextField, Divider } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
 import Cookies from 'universal-cookie';
-import TopNav from "../../components/topNav";
+import {LOGIN_URL} from "../../data/EndPoints"
 const cookies = new Cookies();
 
 const Login: React.FC = () =>{
@@ -14,7 +14,7 @@ const Login: React.FC = () =>{
     const navigate = useNavigate();
     const handleClick=()=>{
         const user ={email,password};
-        fetch('http://localhost:8000/login',{
+        fetch(LOGIN_URL,{
             method : 'POST',
             credentials: 'include',
             body:JSON.stringify(user)

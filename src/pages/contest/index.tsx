@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Problemline from "../../components/Problemline";
-import Rankingline from "../../components/Rankingline";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -8,9 +7,9 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import TopNav from "../../components/topNav";
 import { useParams } from "react-router-dom";
-import Contest from "../all-contests/components/interface"
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-
+import {CONTEST_URL} from "../../data/EndPoints";
+import {Problem, scoreRequest, scoreResponse} from "../../data/interfaces";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,34 +18,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-interface Testcase {
-	id: number,
-	input: string,
-	output: string
-}
-
-interface Problem {
-    problemId: number,
-	problemName: string,
-	numberOfSubmissions: number,
-	writerId: number,
-	description: string,
-	timeLimit: string,
-	memoryLimit: string,
-	difficulty: string,
-	testcases: Testcase[],
-	problemSubmissionsId: []
-}
-interface scoreRequest{
-    page:number,
-    contestid:number,
-}
-
-interface scoreResponse{
-  firstName:string
-  score:number,
-  userid:number,
-}
 
 
 const renderHeader = () => {
@@ -103,14 +74,14 @@ const ContestFront: React.FC = () => {
 //const [state, setState] = React.useState({ rows: rows, columns: columns });
 
 useEffect(() => {
-  fetch('http://localhost:8000/all-contests/contest/'+id,{
+  fetch(CONTEST_URL + id ,{
             method : 'GET',
         }).then((res) => res.json())
         .then((json) => {
             setLoading(false);
             setProblems(json);
         })
-  fetch('http://localhost:8000/all-contests/contest/'+id+'/scoreboard',{
+  fetch(CONTEST_URL + id + '/scoreboard',{
     method : 'POST',
     headers:{'content-type':'application/json'},
     body:JSON.stringify(scoreRequest)

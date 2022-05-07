@@ -4,17 +4,17 @@ import Collapse from "./components/collapse";
 import SearchBar from "./components/searchBar";
 import styles from "./styles.module.css";
 import BasicTableComponent from "./components/table";
-import Problem from "../problem";
-
+import {HOME_URL} from "../../data/EndPoints"
+import {Problem} from "../../data/interfaces";
 
 const Home: React.FC = () => {
-  let problem :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+  let problem :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]}
   const [problems, setProblems] = useState([problem]);
   
   const urlParams = new URLSearchParams(window.location.search);
   const searchValue = urlParams.get("search");
   useEffect(() => {
-    fetch('http://localhost:8000/home',{
+    fetch(HOME_URL,{
         method : 'POST',
         body:JSON.stringify({searchValue: searchValue})
     })

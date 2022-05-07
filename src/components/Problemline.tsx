@@ -2,25 +2,8 @@ import React, { Component } from 'react'
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import {Problem} from "../data/interfaces";
 
-interface Testcase {
-	id: number,
-	input: string,
-	output: string
-}
-
-interface Problem {
-    problemId: number,
-	problemName: string,
-	numberOfSubmissions: number,
-	writerId: number,
-	description: string,
-	timeLimit: string,
-	memoryLimit: string,
-	difficulty: string,
-	testcases: Testcase[],
-	problemSubmissionsId: []
-}
 
 /*
 function createRow(

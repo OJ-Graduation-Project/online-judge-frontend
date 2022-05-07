@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import styles from "./styles.module.css";
-import { CodeBlock, dracula } from "react-code-blocks";
 import TextField from '@mui/material/TextField';
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@mui/material/Button"
 import { Container } from '@mui/material';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import TopNav from "../../components/topNav";
-
+import {CREATE_PROBLEM_URL} from "../../data/EndPoints"
+import {TestCase} from "../../data/interfaces";
 
 const CreateProblem: React.FC = () => {
 
@@ -26,9 +24,8 @@ const CreateProblem: React.FC = () => {
         }
         console.log(problem)
 
-        fetch('http://localhost:8000/create-problem',{
+        fetch(CREATE_PROBLEM_URL,{
             method : 'POST',
-            // headers:{'content-type':'application/json'},
             body:JSON.stringify(problem)
         }).then(()=>{
             console.log("done");
@@ -69,15 +66,11 @@ const CreateProblem: React.FC = () => {
     const [language, setLanguage] = useState('java');
     const allLanguages = ['java', 'c', 'cpp', 'python'];
     var testCaseIndex = 1;
+    var problemIdIndex = 1;
     const categories = ['DP', 'Binary Search', 'Graph', 'Trees'];
     const difficulties = ['Easy', 'Medium', 'Hard'];
-    interface TestCase {
-        testCaseNumber: number;
-        input: string;
-        output: string;
-    }
 
-    let testCase:TestCase={testCaseNumber: 0, input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
+    let testCase:TestCase={problemId: 0, testCaseNumber: 0, input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
 
 
     const [testcases, setTestCases] = useState([testCase])
@@ -86,11 +79,13 @@ const CreateProblem: React.FC = () => {
         console.log("before adding" , testcases)
 
         testcases.push( {
+            problemId: problemIdIndex,
             testCaseNumber: testCaseIndex,
             input: input, 
             output: output
         } )
         testCaseIndex = testCaseIndex + 1;
+        problemIdIndex = problemIdIndex + 1;
         console.log(testcases)
         
     }

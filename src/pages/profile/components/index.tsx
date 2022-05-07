@@ -1,9 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
-interface TitleInfoProps {
-  title: string;
-  value: string;
-}
+import {TitleInfoProps} from "../../../data/interfaces"
 
 const TitleInfo: React.FC<TitleInfoProps> = (props: TitleInfoProps) => {
   return (

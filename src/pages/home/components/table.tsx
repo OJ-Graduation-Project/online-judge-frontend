@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "@mui/material/Link";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Problem from "../../problem";
+import { Problem} from "../../../data/interfaces";
+
 export default function DataTable(props:{
   data: Problem[],
 }) {
@@ -35,9 +36,9 @@ export default function DataTable(props:{
 
   for (let i = 0; i < d.length; i++) {
     rows[i] = {
-      id: d[i].problemId,
+      id: i+1,
       name: d[i].problemName,
-      difficulty: d[i].Difficulty,
+      difficulty: d[i].difficulty,
       status: "to be discussed ",
     };
   }
