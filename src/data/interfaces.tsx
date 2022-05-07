@@ -65,7 +65,7 @@ export interface Submission {
 	submittedCode:string,  
 	time:string, 
 	space:string,
-	accepted:number,
+	accepted:string,
 	failedTestCase :FailedTestCase,
 }
 
