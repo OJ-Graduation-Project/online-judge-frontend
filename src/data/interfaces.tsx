@@ -6,7 +6,7 @@ export interface TestCase {
 }
 
 export interface Problem {
-    problemId: number,
+    _id: number,
 	problemName: string,
 	numberOfSubmissions: number,
 	writerId: number,
