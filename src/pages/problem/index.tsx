@@ -1,65 +1,20 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import DenseTable from "./components/table"
 import { Button } from "@mui/material";
 import TopNav from "../../components/topNav";
-import problem from './components/problem.json'
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import CodeSnippet from "../../components/CodeSnippet";
 import Container from '@mui/material/Container';
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from 'universal-cookie';
-
-interface SubmissionRequest {
-	problemID: number,
-	ownerID: number,
-	language: string,
-	code: string,
-	submissionId: number,
-    date: string ,
-    isContest:boolean,
-    contestid:string
-}
-interface Problem {
-    problemId: number,
-	problemName: string,
-	numberOfSubmissions: number,
-	writerId: number,
-	description: string,
-	timeLimit: string,
-	memoryLimit: string,
-	Difficulty: string,
-	testcases: TestCase[],
-	problemSubmissionsId: []
-}
-interface TestCase {
-    problemId: number,
-    testCaseNumber: number,
-    input: string,
-    output: string,
-}
-interface FailedTestCase {
-    testCase: TestCase,
-    reason: string,
-    userOutput: string,
-}
-interface Submission {
-	submissionId:number,    
-	problemId:number,         
-	userId:number,        
-    date:string,         
-	language:string,   
-	submittedCode:string,  
-	time:string, 
-	space:string,
-	accepted:number,
-	failedTestCase :FailedTestCase,
-}
+import {PROBLEM_URL,CONTEST_URL, SUBMIT_URL} from "../../data/EndPoints"; 
+import {SubmissionRequest, Problem, Submission} from "../../data/interfaces";
 
 const cookies = new Cookies();
 
-const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
+const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
 
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
@@ -67,7 +22,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     const { contestid,problemid } = useParams()
     const navigate = useNavigate();
     const cookies = new Cookies();
-    let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+    let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]}
     let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <bits/stdc++.h>
     using namespace std;
     
@@ -86,7 +41,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     let [submission, setSubmission] = useState(s);
     useEffect(() => {
         if(isContest){
-            fetch('http://localhost:8000/all-contests/contest/'+contestid+'/problem/'+problemid,{
+            fetch(CONTEST_URL +contestid+'/problem/'+problemid,{
                 method:'GET',
             }).then((res) => res.json())
             .then((json) => {
@@ -95,7 +50,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
 
             })
         }else{
-        fetch('http://localhost:8000/problem',{
+        fetch(PROBLEM_URL,{
             method : 'POST',
             // headers:{'content-type':'application/json'},
             body:JSON.stringify({name})
@@ -147,7 +102,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
                 isContest:isContest,
                 contestid:contestid,
             }
-            fetch('http://localhost:8000/submit',{
+            fetch(SUBMIT_URL,{
                 method : 'POST',
                 // headers:{'content-type':'application/json'},
                 credentials:'include',
@@ -236,4 +191,4 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     );
 }
 
-export default Problem;
+export default SingleProblem;

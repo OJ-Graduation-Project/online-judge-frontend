@@ -2,7 +2,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
 import styles from "../../topics/styles.module.css";
-
+import {TOPICS_URL} from "../../../data/EndPoints";
 interface Problem {
   id: number;
   problemName: string;
@@ -55,7 +55,7 @@ export default function DataTable() {
   let [items, setItems] = useState([problem]);
   let [DataisLoaded, setDataisLoaded] = useState(false);
   useEffect(() => {
-    fetch("http://localhost:8000/topic", {
+    fetch(TOPICS_URL, {
       method: "POST",
       body: JSON.stringify({ topicName }),
     })

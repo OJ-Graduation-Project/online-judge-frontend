@@ -1,11 +1,10 @@
 import styles from "./styles.module.css";
-import DataTable from "../user-submissions/components/table";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import TopNav from "../../components/topNav";
-import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { StayCurrentLandscapeSharp } from "@material-ui/icons";
+import {USER_PROBLEMS_URL} from "../../data/EndPoints";
+import {Problem} from "../../data/interfaces";
 
 const columns: GridColDef[] = [
   { field: "problemName", headerName: "Problem Name", width: 150 },
@@ -14,27 +13,7 @@ const columns: GridColDef[] = [
   { field: "timeLimit", headerName: "Time Limit", width: 150 },
   { field: "memoryLimit", headerName: "Space", width: 150 },
   { field: "difficulty", headerName: "Difficulty", width: 150 },
-//   { field: "testCaseNumber", headerName: "Test case #", width: 150 },
-//   { field: "input", headerName: "Input", width: 150 },
-//   { field: "output", headerName: "Output", width: 150 },
 ];
-
-interface Problem {
-  problemName: string,
-  numberOfSubmissions: number,
-  description: string,
-  timeLimit: string,
-  memoryLimit: string,
-  difficulty: string,
-//   testCaseNumber: number, 
-//   input: string, 
-//   output: string,
-//   testcases:[{
-//       testCaseNumber: number,
-//       input: string,
-//       output: string
-//   }],
-}
 
 const UserProblems: React.FC = () => {
   const { id } = useParams()
@@ -46,14 +25,10 @@ const UserProblems: React.FC = () => {
     timeLimit: "",
     memoryLimit: "",
     difficulty: "",
-    // testCaseNumber: 0,
-    // input: "",
-    // output: "",
-    // testcases:[{
-    //     testCaseNumber: 0,
-    //     input: "",
-    //     output: ""
-    // }],
+    problemId: 0,
+    writerId: 0,
+    testcases: [],
+    problemSubmissionsId: []
   }
 
   const [problems, setProblems] = useState([problem])
@@ -62,7 +37,7 @@ const UserProblems: React.FC = () => {
   let rows = [{}]
 
   useEffect(() => {
-    fetch('http://localhost:8000/user-problems/' + id, {
+    fetch(USER_PROBLEMS_URL + id, {
       method: 'GET',
     }).then((res) => res.json())
       .then((json) => {

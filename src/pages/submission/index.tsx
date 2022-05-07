@@ -1,23 +1,10 @@
 import React, {useState} from "react";
-import useEffect from "react";
 import styles from "./styles.module.css";
-import { CopyBlock ,a11yLight} from "react-code-blocks";
 import CodeSnippet from "../../components/CodeSnippet";
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import TopNav from "../../components/topNav";
-interface submission {
-    code: string;
-    verdict: string;
-    language: string;
-}
-interface testCase{
-    id: number,
-    input: string,
-    yourOutput: string,
-    expectedOutput: string
-}
+
 const Submission: React.FC = () =>{
     const [submission , setSubmission] = useState({
         code: "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        if(n < 0)\n            return false;\n        return __builtin_popcount(n) == 1;\n    }\n};",

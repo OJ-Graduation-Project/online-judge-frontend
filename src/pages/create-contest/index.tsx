@@ -1,9 +1,9 @@
 import CreateConProblems from "../../components/CreateConProblems";
-import styles from "./styles.module.css";
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Button from "@mui/material/Button";
 import { Container, TablePagination } from "@mui/material";
 import TopNav from "../../components/topNav";
+import {CREATE_CONTEST_URL} from "../../data/EndPoints";
 
 // type Contest = {
 //   id: number;
@@ -122,9 +122,8 @@ export class CreateContest extends Component<Props, State> {
     const contestDetails = {contestName: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblemSet: this.state.id};
     console.log(contestDetails)
     console.log(JSON.stringify(contestDetails))
-    fetch('http://localhost:8000/create-contest',{
+    fetch(CREATE_CONTEST_URL,{
         method : 'POST',
-        // headers:{'content-type':'application/json'},
         body:JSON.stringify(contestDetails)
     }).then(()=>{
         console.log("done");

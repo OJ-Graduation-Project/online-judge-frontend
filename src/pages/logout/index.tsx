@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-
+import {LOGOUT_URL} from "../../data/EndPoints";
 
 const Logout: React.FC = () =>{
     const navigate = useNavigate();
     useEffect(() => {
-        fetch('http://localhost:8000/logout',{
+        fetch(LOGOUT_URL,{
             method : 'POST',
             credentials:'include',
             body:JSON.stringify({})

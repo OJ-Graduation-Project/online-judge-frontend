@@ -1,11 +1,10 @@
 import styles from "./styles.module.css";
-import DataTable from "../user-submissions/components/table";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import TopNav from "../../components/topNav";
-import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { StayCurrentLandscapeSharp } from "@material-ui/icons";
+import {USER_SUBMISSIONS_URL} from "../../data/EndPoints";
+import {Submission} from "../../data/interfaces";
 
 const columns: GridColDef[] = [
   { field: "date", headerName: "Date", width: 150 },
@@ -19,45 +18,30 @@ const columns: GridColDef[] = [
   { field: "submittedCode", headerName: "SubmittedCode", width: 400 },
 ];
 
-interface Submission {
-  date: string,
-  submittedCode: number,
-  language: string,
-  accepted: string,
-  time: string,
-  space: string,
-  userOutput: string,
-  input: string,
-  output: string,
-  failedTestCase: {
-    testCase: {
-      input: string,
-      output: string
-    }
-    userOutput: string
-  },
-}
 
 const UserSubmissions: React.FC = () => {
   const { id } = useParams()
 
   let submission: Submission = {
     date: "",
-    submittedCode: 0,
+    submittedCode: "",
     language: "",
-    accepted: "",
+    accepted: 0,
     time: "",
     space: "",
-    userOutput: "",
-    input: "",
-    output: "",
     failedTestCase: {
       userOutput: "",
+      reason: "",
       testCase: {
+        problemId: 0,
+        testCaseNumber: 0,
         input: "",
         output: ""
       }
-    }
+    },
+    submissionId: 0,
+    problemId: 0,
+    userId: 0
   }
 
   const [submissions, setSubmissions] = useState([submission])
@@ -66,7 +50,7 @@ const UserSubmissions: React.FC = () => {
   let rows = [{}]
 
   useEffect(() => {
-    fetch('http://localhost:8000/user-submissions/' + id, {
+    fetch(USER_SUBMISSIONS_URL + id, {
       method: 'GET',
     }).then((res) => res.json())
       .then((json) => {
@@ -87,7 +71,7 @@ const UserSubmissions: React.FC = () => {
         date: submissions[i].date,
         submittedCode: submissions[i].submittedCode,
         language: submissions[i].language,
-        accepted: submissions[i].accepted == "false" ? "Wrong answer" : "accepted",
+        accepted: submissions[i].accepted === 0 ? "Wrong answer" : "accepted",
         time: submissions[i].time,
         space: submissions[i].space,
         failedTestCase: submissions[i].failedTestCase,

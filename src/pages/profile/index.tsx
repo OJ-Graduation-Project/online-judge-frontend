@@ -7,24 +7,12 @@ import TopNav from "../../components/topNav";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie'
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {PROFILE_URL} from "../../data/EndPoints";
+import {UserProfile} from "../../data/interfaces";
 const cookies = new Cookies();
 
 
-interface Profile {
-    firstName: string,
-    lastName: string,
-    country: string,
-    organization: string,
-    rating: number,
-    registrationDate: string,
-    acceptedCount: number,
-    runtimeCount: number,
-    timelimit_exceeded_count: number,
-    wrongCount: number,
-    userSubmissionsId: number[],
-    userContestsId: number[],
-    createdProblemsId: number[],
-}
+
 
 const columns: GridColDef[] = [
     { field: "SubmissionID", headerName: "SubmissionID", width: 300 },
@@ -38,7 +26,7 @@ const Profile: React.FC = () => {
     // const urlParams = new URLSearchParams(window.location.search);
     const userID = 1629;
 
-    let p: Profile = {
+    let p: UserProfile = {
         firstName: "", lastName: "test", country: "", organization: "",
         rating: 0, registrationDate: "1-1-2001", acceptedCount: 9, wrongCount: 5, timelimit_exceeded_count: 0,
         runtimeCount: 5, userSubmissionsId: [], userContestsId: [], createdProblemsId: []
@@ -53,7 +41,7 @@ const Profile: React.FC = () => {
         if(!hasCookie){
             navigate("/login");
         }
-        fetch('http://localhost:8000/profile',{
+        fetch(PROFILE_URL,{
             method : 'POST',
             credentials: 'include',
             // headers:{'content-type':'application/json'},

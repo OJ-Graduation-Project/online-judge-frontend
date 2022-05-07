@@ -1,12 +1,9 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "@mui/material/Link";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import Contest from "../components/interface"
-interface Row{
-  id:number,
-  cont:Contest
-}
+import {Contest} from "../../../data/interfaces";
+
 const columns: GridColDef[] = [
   { field: "id", headerName: "Name", width: 400,
   renderCell: (cellValues) => {
@@ -56,14 +53,13 @@ const columns: GridColDef[] = [
 export default function DataTable(props:{
   data: Contest[],
 }) {
-  //const [d, setD] = useState(data);
   
   const rows = [{}];
 
   for (let i = 0; i < props.data.length; i++) {
     rows[i] = {
       name: props.data[i].contestName,
-      id:props.data[i].contestId,
+      id:i+1,
       writers: "tbd",
       start: props.data[i].startTime,
       length: props.data[i].duration,

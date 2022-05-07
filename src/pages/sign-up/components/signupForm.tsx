@@ -4,6 +4,8 @@ import { Button, TextField, Divider } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import {SIGNUP_URL} from "../../../data/EndPoints";
+
 const SignUpForm=()=>{
 
     const navigate = useNavigate()
@@ -20,7 +22,7 @@ const SignUpForm=()=>{
     const [userExists, setUserExists] = useState(false)
     const handleSubmit=()=>{
         const user ={firstName,lastName,email,password};
-        fetch('http://localhost:8000/sign-up',{
+        fetch(SIGNUP_URL,{
             method : 'POST',
             headers:{'content-type':'application/json'},
             body:JSON.stringify(user)

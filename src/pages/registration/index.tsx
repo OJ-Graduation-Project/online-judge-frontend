@@ -1,12 +1,14 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import styles from "./styles.module.css";
+import {REGISTRATION_URL} from "../../data/EndPoints";
 const urlParams = new URLSearchParams(window.location.search);
 const contestName = urlParams.get("contest-name");
+
 const handleSubmit = () => {
   let userId = "909";
   fetch(
-    `http://localhost:8000/all-contests/Registration/contest-name=${contestName}`,
+    REGISTRATION_URL+`=${contestName}`,
     {
       method: "POST",
       body: JSON.stringify({ userId, contestName }),
