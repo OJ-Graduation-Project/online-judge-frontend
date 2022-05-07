@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import {TestCase} from "../../../data/interfaces";
 
 function createData(
   input: string,
@@ -21,13 +21,6 @@ const rows = [
     createData('nums = [3,3], target = 6', '[0,1]')
 ];
 
-
-interface TestCase {
-  problemId: number,
-  testCaseNumber: number,
-  input: string,
-  output: string,
-}
 
 export default function DenseTable(props: {test:TestCase[]}) {
   return (

@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import DenseTable from "./components/table"
+import DenseTable from "./components/table";
 import { Button } from "@mui/material";
 import TopNav from "../../components/topNav";
 import CodeEditor from '@uiw/react-textarea-code-editor';
@@ -32,7 +32,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
 
         return 0;
     }
-        `,time: "",space: "",accepted: 0,failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
+        `,time: "",space: "",accepted: "",failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
     }
     let [problem, setProblem] = useState(p)
     let [problemIsLoaded, setProblemIsLoaded] = useState(false)
