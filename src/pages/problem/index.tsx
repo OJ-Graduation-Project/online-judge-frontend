@@ -23,7 +23,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     const navigate = useNavigate();
     const cookies = new Cookies();
     let p: Problem = {_id: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]}
-    let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <bits/stdc++.h>
+    let s: Submission = {_id: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <bits/stdc++.h>
     using namespace std;
     
     int main()
