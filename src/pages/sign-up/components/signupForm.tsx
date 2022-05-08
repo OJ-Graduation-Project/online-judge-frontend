@@ -19,9 +19,17 @@ const SignUpForm=()=>{
     const [lastName, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [country, setCountry] = useState('');
+    const [organization, setOrganization] = useState('');
+    const [acceptedCount, setAcceptedCount] = useState(0);
+    const [wrongCount, setWrongCount] = useState(0);
+    const [timelimit_exceeded_count, setTimelimit_exceeded_count] = useState(0);
+    const [runtimeCount, setRuntimeCount] = useState(0);
+    const registrationDate = new Date();
     const [userExists, setUserExists] = useState(false)
     const handleSubmit=()=>{
-        const user ={firstName,lastName,email,password};
+        const user = {firstName, lastName, country, organization, acceptedCount,
+            wrongCount, timelimit_exceeded_count, runtimeCount, email, password};
         fetch(SIGNUP_URL,{
             method : 'POST',
             headers:{'content-type':'application/json'},
@@ -49,6 +57,14 @@ const SignUpForm=()=>{
                 <div className='col-6 p-2'>
                     <TextField id="lastname" style={{margin:5}} type="text" error={lastName
                     .length<1} value={lastName} onChange={(e)=>setLastname(e.target.value)} variant="outlined" label="Enter Last Name"/>
+                </div>
+                <div className='col-6 p-2'>
+                    <TextField id="country" style={{margin:5}} type="text" error={country
+                    .length<1} value={country} onChange={(e)=>setCountry(e.target.value)} variant="outlined" label="Enter your country"/>
+                </div>
+                <div className='col-6 p-2'>
+                    <TextField id="organization" style={{margin:5}} type="text" error={organization
+                    .length<1} value={organization} onChange={(e)=>setOrganization(e.target.value)} variant="outlined" label="Enter your organization"/>
                 </div>
             </div>
             <div className={styles["icon"]}>

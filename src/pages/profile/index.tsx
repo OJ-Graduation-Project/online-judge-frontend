@@ -53,7 +53,7 @@ const Profile: React.FC = () => {
                 setDataisLoaded(true);
             })
     }, [])
-    
+    console.log(profile)
     if (DataisLoaded) {
         return (
             <div>
