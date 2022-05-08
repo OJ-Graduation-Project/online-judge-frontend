@@ -85,9 +85,10 @@ const UserSubmissions: React.FC = () => {
   }
 
   return (
-
-    <div className={styles["table"]}>
+    <div>
       <TopNav />
+    <div className={styles["table"]}>
+      
 
       <h3>Your Submissions</h3>
 
@@ -105,6 +106,7 @@ const UserSubmissions: React.FC = () => {
             You have no submissions
           </div>
         )}
+    </div>
     </div>
   );
 };
