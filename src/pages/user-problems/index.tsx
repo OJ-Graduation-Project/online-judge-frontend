@@ -71,11 +71,12 @@ const UserProblems: React.FC = () => {
   }
 
   return (
-
+    <div>
+    <TopNav />
     <div className={styles["table"]}>
-      <TopNav />
+      
 
-      <h3>Your Submissions</h3>
+      <h3>Your Created Problems</h3>
 
       {loaddata() ?
         (
@@ -88,9 +89,10 @@ const UserProblems: React.FC = () => {
           />
           </div>) : (
           <div>
-            You have no submissions
+            You have no problems created
           </div>
         )}
+    </div>
     </div>
   );
 };
