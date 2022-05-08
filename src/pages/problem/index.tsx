@@ -74,7 +74,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     const allLanguages = ['java', 'c', 'cpp', 'python'];
     const [code, setCode] = React.useState(
     `
-    #include <bits/stdc++.h>
+    #include <iostream>
     using namespace std;
     
     int main()
