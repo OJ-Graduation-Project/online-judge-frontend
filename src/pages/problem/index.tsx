@@ -131,7 +131,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
             <Container>
             <div >
                 <div className={styles["problemPage"]}>
-                    <h1>{problem._id}. {problem.problemName}</h1>
+                    <h1>{problem.problemName}</h1>
                     <h5>
                         time limit per test: {problem.timeLimit} <br/>
                         memory limit per test: {problem.memoryLimit}<br/>
