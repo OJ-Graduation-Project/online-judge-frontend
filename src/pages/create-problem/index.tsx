@@ -10,22 +10,22 @@ import {TestCase} from "../../data/interfaces";
 
 const CreateProblem: React.FC = () => {
 
-
     const saveProblem = () => {
         const problem = {
             problemName: problemName,
-            Description: description,
+            description: description,
             Category: problemCategory,//
-            Difficulty: difficulty,
-            TimeLimit: timeLimit,
-            MemoryLimit: memoryLimit,
-            SolutionCode: solutionCode, //
+            difficulty: difficulty,
+            timeLimit: timeLimit,
+            memoryLimit: memoryLimit,
+            solutionCode: solutionCode, //
             testcases : testcases
         }
         console.log(problem)
 
         fetch(CREATE_PROBLEM_URL,{
             method : 'POST',
+            credentials: 'include',
             body:JSON.stringify(problem)
         }).then(()=>{
             console.log("done");
@@ -36,8 +36,8 @@ const CreateProblem: React.FC = () => {
     const [description, setProblemDesc] = useState("")
     const [problemCategory, setProblemCategory] = useState("")
     const [difficulty, setProblemDifficulty] = useState("")
-    const [timeLimit, setProblemTimeLimit] = useState(0)
-    const [memoryLimit, setProblemMemLimit] = useState(0)
+    const [timeLimit, setProblemTimeLimit] = useState("")
+    const [memoryLimit, setProblemMemLimit] = useState("")
     const [solutionCode, setProblemSolution] = React.useState(
         `function add(a, b) {\n  return a + b;\n}`
     );  
@@ -53,8 +53,8 @@ const CreateProblem: React.FC = () => {
         setProblemDifficulty("")
         setProblemCategory("")
         setProblemSolution(" `function add(a, b) {\n  return a + b;\n}`")
-        setProblemTimeLimit( 0 ) 
-        setProblemMemLimit( 0 )
+        setProblemTimeLimit("") 
+        setProblemMemLimit("")
 
     }
     const verifySolution = () => {
@@ -113,9 +113,9 @@ const CreateProblem: React.FC = () => {
             <h2>Choose problem difficulty:</h2>
             <Dropdown options={difficulties} onChange={(problemDifficulty) => { setProblemDifficulty(problemDifficulty.value) }} value={difficulty} placeholder="Select a difficulty" />
             <h2>Enter Problem Time Limit:</h2>
-            <input id="outlined-basic"  required onChange={event => setProblemTimeLimit(event.target.valueAsNumber)} />
+            <input id="outlined-basic"  required onChange={event => setProblemTimeLimit(event.target.value)} />
             <h2>Enter Problem Memory Limit:</h2>
-            <input id="outlined-basic" required onChange={event => setProblemMemLimit(event.target.valueAsNumber)} />
+            <input id="outlined-basic" required onChange={event => setProblemMemLimit(event.target.value)} />
 
             <div>
                 <h2>Enter Problem Solution:</h2>
