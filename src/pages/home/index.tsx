@@ -8,7 +8,7 @@ import Problem from "../problem";
 
 
 const Home: React.FC = () => {
-  let problem :Problem = {problemId: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+  let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
   const [problems, setProblems] = useState([problem]);
   
   const urlParams = new URLSearchParams(window.location.search);

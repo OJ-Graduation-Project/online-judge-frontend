@@ -22,7 +22,7 @@ interface SubmissionRequest {
     contestid:string
 }
 interface Problem {
-    problemId: number,
+    _id: number,
 	problemName: string,
 	numberOfSubmissions: number,
 	writerId: number,
@@ -67,7 +67,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     const { contestid,problemid } = useParams()
     const navigate = useNavigate();
     const cookies = new Cookies();
-    let p: Problem = {problemId: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
+    let p: Problem = {_id: 1, problemName:"test", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", Difficulty:"", testcases:[],problemSubmissionsId:[]}
     let s: Submission = {submissionId: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <bits/stdc++.h>
     using namespace std;
     
@@ -136,9 +136,9 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
             navigate("/login")
         }
         else{
-            const problemid=problem.problemId;
+            const problemid=problem._id;
             const submissionRequest:SubmissionRequest = {
-                problemID: problem.problemId,
+                problemID: problem._id,
                 ownerID: 0,
                 language: language,
                 code: code,
@@ -176,7 +176,7 @@ const Problem: React.FC <{isContest:boolean}>= ({isContest}) =>{
             <Container>
             <div >
                 <div className={styles["problemPage"]}>
-                    <h1>{problem.problemId}. {problem.problemName}</h1>
+                    <h1>{problem._id}. {problem.problemName}</h1>
                     <h5>
                         time limit per test: {problem.timeLimit} <br/>
                         memory limit per test: {problem.memoryLimit}<br/>
