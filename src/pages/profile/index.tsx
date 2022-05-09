@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
     let p: UserProfile = {
         firstName: "", lastName: "test", country: "", organization: "",
         rating: 0, registrationDate: "1-1-2001", acceptedCount: 9, wrongCount: 5, timelimit_exceeded_count: 0,
-        runtimeCount: 5, userSubmissionsId: [], userContestsId: [], createdProblemsId: []
+        runtimeCount: 5, userSubmissionsId: [], userContestsId: [], createdProblemsId: [],_id:0
     }
     let [profile, setProfile] = useState(p)
     let [DataisLoaded, setDataisLoaded] = useState(false)
@@ -97,8 +97,8 @@ const Profile: React.FC = () => {
                     </div>
 
                     <div className={styles["right-container"]}>
-                        <a href={"/user-submissions/" + userID}>Submissions</a>
-                        <a href={"/user-problems/" + userID}>Problems Created</a>
+                        <a href={"/user-submissions/" + profile._id}>Submissions</a>
+                        <a href={"/user-problems/" + profile._id}>Problems Created</a>
                         {/* <a href={""}>Contests Created</a> */}
                     </div>
                 </div>

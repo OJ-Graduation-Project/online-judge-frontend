@@ -38,7 +38,7 @@ const UserProblems: React.FC = () => {
 
   useEffect(() => {
     fetch(USER_PROBLEMS_URL + id, {
-      method: 'GET',
+      method: 'POST',
     }).then((res) => res.json())
       .then((json) => {
         setProblems(json);
@@ -48,7 +48,7 @@ const UserProblems: React.FC = () => {
   }, [])
 
   let loaddata = () => {
-    if (loadingScore) return false;
+    if (loadingScore || problems==null) return false;
 
     for (let i = 0; i < problems.length; i++) {
       console.log("subs[i] ", problems[i])

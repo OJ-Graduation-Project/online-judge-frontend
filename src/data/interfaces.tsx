@@ -83,6 +83,7 @@ export interface UserProfile {
     userSubmissionsId: number[],
     userContestsId: number[],
     createdProblemsId: number[],
+    _id:number
 }
 
 export interface TitleInfoProps {
