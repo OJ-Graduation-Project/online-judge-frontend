@@ -72,7 +72,7 @@ const UserSubmissions: React.FC = () => {
         date: submissions[i].date,
         submittedCode: submissions[i].submittedCode,
         language: submissions[i].language,
-        accepted: submissions[i].accepted === "false" ? "Wrong answer" : "accepted",
+        accepted: submissions[i].failedTestCase.reason == null ? "Accepted" : submissions[i].failedTestCase.reason,
         time: submissions[i].time,
         space: submissions[i].space,
         failedTestCase: submissions[i].failedTestCase,
