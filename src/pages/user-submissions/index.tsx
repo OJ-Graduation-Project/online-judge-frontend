@@ -51,7 +51,8 @@ const UserSubmissions: React.FC = () => {
 
   useEffect(() => {
     fetch(USER_SUBMISSIONS_URL + id, {
-      method: 'GET',
+      method: 'POST',
+      credentials:"include"
     }).then((res) => res.json())
       .then((json) => {
         setSubmissions(json);
@@ -61,7 +62,7 @@ const UserSubmissions: React.FC = () => {
   }, [])
 
   let loaddata = () => {
-    if (loadingScore) return false;
+    if (loadingScore ||submissions==null ) return false;
 
     for (let i = 0; i < submissions.length; i++) {
       console.log("subs[i] ", submissions[i])
