@@ -80,6 +80,7 @@ useEffect(() => {
         .then((json) => {
             setLoading(false);
             setProblems(json);
+            console.log(json);
         })
   fetch(CONTEST_URL + id + '/scoreboard',{
     method : 'POST',
@@ -130,7 +131,7 @@ let loaddata=()=>{
     <div>
        <TopNav/>
       <Container maxWidth="lg">
-        <h1 style={{ margin: "40px 0px", lineHeight: "1.7" }}>Contest 1</h1>
+        <h1 style={{ margin: "40px 0px", lineHeight: "1.7" }}>{id}</h1>
         <h3 style={{ fontWeight: "300" }}>Welcome to the 1st Weekly Contest</h3>
         <br></br>
         <h4 style={{ fontWeight: "400" }}>Important Notes </h4>

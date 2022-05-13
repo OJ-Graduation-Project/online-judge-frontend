@@ -12,7 +12,7 @@ const columns: GridColDef[] = [
         component="button"
         onClick={() =>
           (window.location.href =
-            "/all-contests/contest/" + cellValues.row.id)
+            "/all-contests/contest/" + cellValues.row.name)
         }
       >
         {cellValues.row.name }
