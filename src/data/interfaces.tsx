@@ -30,12 +30,12 @@ export interface scoreResponse{
 
 export interface Contest {
     _id: number,
-    contestName: string,
+    contestname: string,
     contestProblemsId: number[],
     duration: string,
     numberOfRegisteredUsers: number,
     problemsScore: number[],
-    startTime: string,
+    conteststartdate: string,
     wrongSubmissionCost: number
   }
 

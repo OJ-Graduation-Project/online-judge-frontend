@@ -23,13 +23,11 @@ const columns: GridColDef[] = [
 
 
 },
-  { field: "writers", headerName: "Writers", width: 200 },
   {
     field: "start",
-    headerName: "Start",
+    headerName: "Start Date",
     width: 250,
   },
-  { field: "length", headerName: "Length", width: 200 },
   {
     field: "register",
     headerName: "Register",
@@ -58,11 +56,9 @@ export default function DataTable(props:{
 
   for (let i = 0; i < props.data.length; i++) {
     rows[i] = {
-      name: props.data[i].contestName,
+      name: props.data[i].contestname,
       id:i+1,
-      writers: "tbd",
-      start: props.data[i].startTime,
-      length: props.data[i].duration,
+      start: props.data[i].conteststartdate,
     };
   }
   

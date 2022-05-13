@@ -1,52 +1,13 @@
-import CreateConProblems from "../../components/CreateConProblems";
-import React, { Component } from "react";
+import React, { Component,useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { Container, TablePagination } from "@mui/material";
 import TopNav from "../../components/topNav";
-import {CREATE_CONTEST_URL} from "../../data/EndPoints";
-
-// type Contest = {
-//   id: number;
-//   ContestName: string;
-//   ContestStartDate: Date;
-//   ContestEndDate: Date;
-//   contest_problemset: string[];
-// };
-
-// let contestID = "1";
-// // let contestName = 'FirstContest';
-// let contestStartDate = 'Today';
-// let contestEndDate = 'Tomorrow';
-// let contestProblemSet = [1,2,3];
-
-// const [contestID, SetcontestID] = useState("")
-// const [contestName, SetcontestName] = useState("")
-// const [contestStartDate, SetcontestStartDate] = useState("")
-// const [contestEndDate, SetcontestEndDate] = useState("")
-// const [contestProblemSet, SetcontestProblemSet] = useState("")
-
-const onChange = () => {
-  console.log("changed");
-};
-
-const renderHeader = () => {
-  let headerElement = ["", "Name", "Difficulty"];
-
-  return headerElement.map((key, index) => {
-    return (
-      <th
-        style={{
-          textAlign: "center",
-          border: "4px solid #E1E1E1",
-          borderCollapse: "collapse",
-        }}
-        key={index}
-      >
-        {key.toUpperCase()}
-      </th>
-    );
-  });
-};
+import {CREATE_CONTEST_URL, HOME_URL} from "../../data/EndPoints";
+import BasicTableComponent from "./table";
+import { Problem} from "../../data/interfaces";
+import { GridRowId } from "@mui/x-data-grid";
+import ScoreWindow from "./scoreWindow";
+const DEFAULT_SCORE=50;
 
 interface Props {}
 
@@ -57,31 +18,39 @@ interface State {
   contestName: string;
   contestStartDate: string;
   contestEndDate: string;
-  contestProblems: number[];
+  contestProblems: string[];
+  problems: Problem[];
+  problemsScore:number[];
 
 }
 
 export class CreateContest extends Component<Props, State> {
 
+  OnClickState(selectedIDs: Set<GridRowId>, rows_size: number) {
 
-  OnClickState(idP: number, rows_size: number) {
-    let newArr = [...this.state.id];
+    let newArr=[""];
+    selectedIDs.forEach((key,value)=>
+    newArr.push(value.toString())
+    )
+    newArr.shift()
 
-    const index = newArr.indexOf(idP, 0);
-    if (index > -1) {
-      newArr.splice(index, 1);
-    } else {
-      newArr.push(idP);
-    }
     this.setState(
       {
-        id: newArr,
+        contestProblems: newArr,
         elements: rows_size,
       },
       () => {
-        console.log(this.state.id);
+        console.log(this.state.contestProblems);
       }
     );
+  }
+
+  handleProblemScore(problemScores:Array<number>){
+    this.setState(
+      {
+        problemsScore: problemScores
+      }
+    )
   }
 
   handleChangePage = (event: unknown, newPage: number) => {
@@ -102,24 +71,33 @@ export class CreateContest extends Component<Props, State> {
     this.setState({ contestEndDate: date });
   };
 
-  handleContestProblems = (event: unknown, name: number[]) => {
+  handleContestProblems = (event: unknown, name: string[]) => {
     this.setState({ contestProblems: name });
   };
 
+  handleProblems = (event: unknown, name: Problem[]) => {
+      this.setState({ problems: name });
+  };
 
-  // type Contest = {
-  //   id: number;
-  //   ContestName: string;
-  //   ContestStartDate: Date;
-  //   ContestEndDate: Date;
-  //   contest_problemset: string[];
-  // };
-
+  handleCheckEnteredScore=()=>{
+    let problemScores=new Array(this.state.contestProblems.length)
+    if(this.state.problemsScore.length===0){
+      problemScores.fill(DEFAULT_SCORE)
+    }
+    return problemScores;
+  }
 
 
   handleCreateButton=()=>{
-    // const [state, setState] = useState({ contestName});
-    const contestDetails = {contestName: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblemSet: this.state.id};
+
+    const defaultScores= this.handleCheckEnteredScore()    
+
+    const contestDetails = {contestName: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblemSet: this.state.contestProblems, problemsScore:this.state.problemsScore};
+    
+    if(contestDetails.problemsScore.length===0){
+      contestDetails.problemsScore=defaultScores
+    }
+    
     console.log(contestDetails)
     console.log(JSON.stringify(contestDetails))
     fetch(CREATE_CONTEST_URL,{
@@ -129,9 +107,17 @@ export class CreateContest extends Component<Props, State> {
         console.log("done");
     })
   }
+  componentDidMount() {
+
+    this.fetchBooks();
+
+  
+ }
 
   constructor(props: Props) {
     super(props);
+
+    let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]};
     this.state = {
       id: [],
       elements: 0,
@@ -140,10 +126,27 @@ export class CreateContest extends Component<Props, State> {
       contestStartDate: "",
       contestEndDate: "",
       contestProblems: [],
+      problems:[problem],
+      problemsScore:[]
     };
+
+  }
+  fetchBooks = () => {
+
+    fetch(HOME_URL,{
+              method : 'POST',
+              body:JSON.stringify({searchValue: ''})
+          })
+          .then((res) => res.json())
+          .then((json) => {
+            if(json){
+               this.handleProblems(null, json);
+            }
+          })
   }
 
   render() {
+
     return (
       <div>
         <TopNav />
@@ -152,19 +155,6 @@ export class CreateContest extends Component<Props, State> {
           <h2 style={{ margin: "25px 0px", lineHeight: "1.2" }}>
             Contest Creation
           </h2>
-
-          {/* <form
-            onSubmit={(e: React.SyntheticEvent) => {
-              e.preventDefault();
-              const target = e.target as typeof e.target & {
-                email: { value: string };
-                password: { value: string };
-              };
-              const email = target.email.value;
-              const password = target.password.value;
-              //check data here
-            }}
-          > */}
             <div>
               <div>
                 <label style={{ textAlign: "center" }}>Contest Name:</label>
@@ -214,11 +204,12 @@ export class CreateContest extends Component<Props, State> {
                   borderCollapse: "collapse",
                 }}
               >
-                <tr>{renderHeader()}</tr>
-                <CreateConProblems
+
+            <BasicTableComponent
                   onClick={this.OnClickState.bind(this)}
-                  page={this.state.page}
-                ></CreateConProblems>
+                  data={this.state.problems}
+
+/>
               </table>
               <TablePagination
                 rowsPerPageOptions={[5]}
@@ -236,16 +227,18 @@ export class CreateContest extends Component<Props, State> {
                   display: "flex",
                 }}
               >
+
+    
                 <Button
                   style={{ alignItems: "center", justifyContent: "center" }}
                   variant="contained"
                   size="large"
                   type="submit"
-                  // onClick={() => console.log(this.state.id)}
                   onClick={this.handleCreateButton}
                 >
-                  Create Contest
+                  Create 
                 </Button>
+                <ScoreWindow data={this.state.contestProblems} onClick={this.handleProblemScore.bind(this)}/>
               </div>
             </div>
           {/* </form> */}
