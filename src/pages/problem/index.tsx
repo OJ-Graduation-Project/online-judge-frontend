@@ -47,6 +47,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
             .then((json) => {
                 setProblem(json);
                 setProblemIsLoaded(true);
+                console.log(json);
 
             })
         }else{
