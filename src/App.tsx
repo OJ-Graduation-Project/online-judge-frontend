@@ -30,12 +30,12 @@ function App() {
         <Route path="/submit" element={<Submit />} />
 
         <Route path="/problem" element={<Problem isContest={false}/>} />
-        <Route path="/all-contests/contest/:contestid/problem/:problemid" element={<Problem isContest={true}/>} />
+        <Route path="/all-contests/contest/:contestid/startTime/:startTime/problem/:problemid" element={<Problem isContest={true}/>} />
 
         <Route path="/create-problem" element={<CreateProblem />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/create-contest" element={<CreateContest />} />
-        <Route path="/all-contests/contest/:id" element={<ContestFront />} />
+        <Route path="/all-contests/contest/:id/startTime/:startTime" element={<ContestFront />} />
         <Route path="/scoreboard" element={<Scoreboard />} />
         <Route path="/user-submissions/:id" element={<UserSubmissions />} />
         <Route path="/user-problems/:id" element={<UserProblems />} />

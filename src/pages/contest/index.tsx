@@ -12,6 +12,7 @@ import { CONTEST_URL } from "../../data/EndPoints";
 import { Problem, scoreRequest, scoreResponse } from "../../data/interfaces";
 import styles from "./styles.module.css";
 import CountDownTimer from "./components/CountDownTimer";
+import MaterialTable from '@material-table/core';//material-table@1.69.3
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -58,7 +59,9 @@ const renderRankHeader = () => {
 
 const ContestFront: React.FC = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const startTime = urlParams.get("startTime");
+    const {id, startTime} = useParams();
+    console.log(id)
+    console.log(startTime)
     const splitted = startTime.split("T");
     const date = splitted[0].split("-");
     const time = splitted[1].split(":");
@@ -71,7 +74,7 @@ const ContestFront: React.FC = () => {
 
     var timeLeft = new Date(contestDate.getTime() - today.getTime());
 
-    const { id } = useParams();
+
     let probs: Problem = {
         _id: 0,
         problemName: "",
@@ -139,7 +142,6 @@ const ContestFront: React.FC = () => {
 
     return (contestDate.getTime() - today.getTime() > 0) ? (
         <div className={styles["contest"]}>
-            <h1>timer here</h1>
             <CountDownTimer millis={timeLeft.getTime()} />
         </div>
     ) : (
@@ -228,21 +230,39 @@ const ContestFront: React.FC = () => {
                         of a contest.{" "}
                     </li>
                 </ul>
-                {loaddata() ? (
-                    <div>
-                        <h2>Scoreboard</h2>
-                        <div style={{ height: 500, width: "100%" }}>
-                            <DataGrid
-                                rows={resprows}
-                                columns={columns}
-                                pageSize={20}
-                                rowsPerPageOptions={[20]}
-                            />
-                        </div>
-                    </div>
-                ) : (
-                    <div></div>
-                )}
+                <MaterialTable
+                    title="Scoreboard"
+                    options={{
+                        sorting:false,
+                        filtering:false,
+                        search:false,
+                    }}
+                    columns={[
+                    { title: 'Rank', field: 'id' },
+                    { title: 'Name', field: 'firstName' },
+                    { title: 'Score', field: 'score' },
+
+                    ]}
+                    data={query =>
+                    new Promise((resolve, reject) => {
+                        let url = CONTEST_URL + id + '/scoreboard/'
+                        url += 'per_page=' + query.pageSize
+                        url += '&page=' + (query.page + 1)
+                        fetch(url)
+                        .then(response => response.json())
+                        .then(result => {
+                            for (let i = 0; i < result.response.length; i++) {
+                                result.response[i].id=i+1;
+                            }
+                            resolve({
+                            data: result.response,
+                            page: query.page,
+                            totalCount: result.totalCount,
+                            })
+                        })
+                    })
+                    }
+                />
             </Container>
         </div>
     );

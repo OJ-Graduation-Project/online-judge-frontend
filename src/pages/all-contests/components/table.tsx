@@ -11,7 +11,7 @@ const columns: GridColDef[] = [
         component="button"
         onClick={() =>
           (window.location.href =
-            "/all-contests/contest/" + cellValues.row.id + "/?startTime=" + cellValues.row.start)
+            "/all-contests/contest/" + cellValues.row.name + "/startTime/" + cellValues.row.start)
         }
       >
         {cellValues.row.name }
