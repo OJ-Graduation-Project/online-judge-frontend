@@ -1,7 +1,6 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "@mui/material/Link";
 import React from "react";
-
 import {Contest} from "../../../data/interfaces";
 
 const columns: GridColDef[] = [
