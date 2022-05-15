@@ -6,12 +6,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const contestName = urlParams.get("contest-name");
 
 const handleSubmit = () => {
-  let userId = "909";
   fetch(
     REGISTRATION_URL+`=${contestName}`,
     {
       method: "POST",
-      body: JSON.stringify({ userId, contestName }),
+      credentials: 'include',
+      body: JSON.stringify({contestName}),
     }
   ).then(() => {
     console.log("done");
