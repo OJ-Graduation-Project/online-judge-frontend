@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {CONTEST_URL} from "../../data/EndPoints";
 import {Problem, scoreRequest, scoreResponse} from "../../data/interfaces";
+import MaterialTable from '@material-table/core';//material-table@1.69.3
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -234,20 +235,42 @@ let loaddata=()=>{
             of a contest.{" "}
           </li>
         </ul>
-{loaddata() ?(<div>
-<h2>Scoreboard</h2>
-<div style={{ height: 500, width: "100%" }}>
-<DataGrid
-        rows={resprows}
-       
-        columns={columns}
-        pageSize={20}
-        rowsPerPageOptions={[20]}
-    />
+
+<div>
+<MaterialTable
+        title="Scoreboard"
+        options={{
+            sorting:false,
+            filtering:false,
+            search:false,
+        }}
+        columns={[
+          { title: 'Rank', field: 'id' },
+          { title: 'Name', field: 'firstName' },
+          { title: 'Score', field: 'score' },
+
+        ]}
+        data={query =>
+          new Promise((resolve, reject) => {
+            let url = CONTEST_URL + '1' + '/scoreboard/'
+            url += 'per_page=' + query.pageSize
+            url += '&page=' + (query.page + 1)
+            fetch(url)
+              .then(response => response.json())
+              .then(result => {
+                for (let i = 0; i < result.response.length; i++) {
+                    result.response[i].id=i+1;
+                }
+                resolve({
+                  data: result.response,
+                  page: query.page,
+                  totalCount: result.totalCount,
+                })
+              })
+          })
+        }
+      />
 </div>
-</div>):(
-<div></div>
-)}
         
 
 
