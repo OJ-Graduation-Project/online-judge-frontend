@@ -1,6 +1,8 @@
 {
     "backend": {
-        "host": "oj-backend.io",
-        "port": "80"
+        "host": "online-judge.io",
+        "port": "80",
+        "connectionType": "http",
+        "subPath": "/api"
     }
 }

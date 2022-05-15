@@ -1,6 +1,8 @@
 {
     "backend": {
         "host": "localhost",
-        "port": "8000"
+        "port": "8000",
+        "connectionType": "http",
+        "subPath": ""
     }
 }
