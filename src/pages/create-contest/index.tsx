@@ -102,6 +102,7 @@ export class CreateContest extends Component<Props, State> {
     console.log(JSON.stringify(contestDetails))
     fetch(CREATE_CONTEST_URL,{
         method : 'POST',
+        credentials: 'include',
         body:JSON.stringify(contestDetails)
     }).then(()=>{
         console.log("done");
