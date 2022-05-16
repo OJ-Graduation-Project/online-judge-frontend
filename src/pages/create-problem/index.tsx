@@ -67,7 +67,26 @@ const CreateProblem: React.FC = () => {
     const allLanguages = ['java', 'c', 'cpp', 'python'];
     var testCaseIndex = 1;
     var problemIdIndex = 0;
-    const categories = ['DP', 'Binary Search', 'Graph', 'Trees'];
+    const categories = [ "Array",
+    "String",
+    "Hash Table",
+    "Dynamic Programming",
+    "Maths",
+    "Depth First search",
+    "Sorting",
+    "Greedy",
+    "Breadth First Search",
+    "Tree",
+    "Binary Tree",
+    "Binary Search",
+    "Two Pointers",
+    "Stack",
+    "Heap",
+    "Graph",
+    "Linked-List",
+    "Recursion",
+    "Divide and Conquer",
+    "Segment Tree",];
     const difficulties = ['Easy', 'Medium', 'Hard'];
 
     let testCase:TestCase={problemId: 0, testCaseNumber: 0, input:'', output:''} //first testCase in testCases is empty 3shan msh 3aref aghayarha :(
