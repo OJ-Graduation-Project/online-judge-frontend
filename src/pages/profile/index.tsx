@@ -73,6 +73,8 @@ const Profile: React.FC = () => {
                                 <img className={styles["img"]} src={logo} alt="logo" />
                             </div>
                         </div>
+                        { (profile.acceptedCount > 0 || profile.runtimeCount > 0 || profile.timelimit_exceeded_count > 0
+                         || profile.wrongCount > 0) &&
                         <div className={styles["chart-container"]} >
                             <Chart
                                 loader={<div>Loading Chart</div>}
@@ -91,7 +93,7 @@ const Profile: React.FC = () => {
                                 rootProps={{ 'data-testid': '1' }}
                             />
 
-                        </div>
+                        </div> }
 
 
                     </div>
