@@ -43,7 +43,7 @@ export default function DataTable(props:{
     };
   }
   return (
-    <div style={{ height: 350, width: "100%" }}>
+    <div style={{ height: 350, width: "100%" }} >
       <DataGrid
         rows={rows}
         columns={columns}
