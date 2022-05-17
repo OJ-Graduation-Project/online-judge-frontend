@@ -41,7 +41,7 @@ function Collapse() {
         <ul className={styles["ul"]}>
           {categories.map((category,index) => (
             <Link
-            key={index}
+            key={category}
               component="button"
               onClick={(event) =>
                 (window.location.href = "/topic/?name=" + category)
