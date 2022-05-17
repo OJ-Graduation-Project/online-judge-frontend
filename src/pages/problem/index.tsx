@@ -99,7 +99,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
                 language: language,
                 code: code,
                 submissionId: 18,
-                date: "1/1/2022", //to be changed
+                date: new Date().toUTCString(),
                 isContest:isContest,
                 contestid:contestid,
             }

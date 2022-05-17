@@ -5,23 +5,28 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {USER_SUBMISSIONS_URL} from "../../data/EndPoints";
 import {Submission} from "../../data/interfaces";
+import Link from "@mui/material/Link";
 
 const columns: GridColDef[] = [
-  { field: "date", headerName: "Date", width: 150 },
-  { field: "accepted", headerName: "VERDICT", width: 150 },
-  { field: "language", headerName: "Language", width: 150 },
-  { field: "time", headerName: "Time", width: 150 },
-  { field: "space", headerName: "Space", width: 150 },
-  { field: "userOutput", headerName: "User Output", width: 150 },
-  { field: "input", headerName: "Input", width: 150 },
-  { field: "output", headerName: "Output", width: 150 },
-  { field: "submittedCode", headerName: "SubmittedCode", width: 400 },
+  { field: "date", headerName: "Date", width: 350 },
+  { field: "accepted", headerName: "VERDICT", width: 300 },
+  { field: "language", headerName: "Language", width: 300 },
+  { field: "submittedCode", headerName: "SubmittedCode",
+  renderCell: (cellValues) => {
+    return (
+      <Link
+        component="button"
+        onClick={(event) =>
+          (window.location.href = "/submission/?submissionid=" + cellValues.row.submittedCode)}>
+        {cellValues.row.submittedCode}
+      </Link>
+    );
+  }, width: 300 },
 ];
 
 
 const UserSubmissions: React.FC = () => {
   const { id } = useParams()
-
   let submission: Submission = {
     date: "",
     submittedCode: "",
@@ -66,19 +71,13 @@ const UserSubmissions: React.FC = () => {
 
     for (let i = 0; i < submissions.length; i++) {
       console.log("subs[i] ", submissions[i])
-
+      console.log("index " + i + ": "+ submissions[i]._id)
       rows[i] = {
         id: i,
         date: submissions[i].date,
-        submittedCode: submissions[i].submittedCode,
+        submittedCode: submissions[i]._id.toString(),
         language: submissions[i].language,
         accepted: submissions[i].failedTestCase.reason == null ? "Accepted" : submissions[i].failedTestCase.reason,
-        time: submissions[i].time,
-        space: submissions[i].space,
-        failedTestCase: submissions[i].failedTestCase,
-        userOutput: submissions[i].failedTestCase.userOutput,
-        input: submissions[i].failedTestCase.testCase.input,
-        output: submissions[i].failedTestCase.testCase.output
       };
     }
     console.log("rows", rows)

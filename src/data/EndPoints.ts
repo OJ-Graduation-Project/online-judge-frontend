@@ -31,4 +31,4 @@ export const SUBMIT_URL = `${connection_type}://${backend_url}/submit`;
 export const TOPICS_URL = `${connection_type}://${backend_url}/topic`;
 export const USER_PROBLEMS_URL = `${connection_type}://${backend_url}/user-problems/`;
 export const USER_SUBMISSIONS_URL = `${connection_type}://${backend_url}/user-submissions/`;
-
+export const VIEW_SUBMISSION_URL = `${connection_type}://${backend_url}/submission/`;
