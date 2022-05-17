@@ -173,17 +173,7 @@ export class CreateContest extends Component<Props, State> {
                 name="ContestStartDate"
                 onChange={ e => this.handleContestStartDate(e, e.target.value) }
                 required
-              />
-              <br></br> <br></br>
-              <label>Contest End time:</label>
-              <br></br> <br></br>
-              <input
-                type="datetime-local"
-                id="ContestEndDate"
-                name="ContestEndDate"
-                onChange={ e => this.handleContestEndDate(e, e.target.value) }
-                required
-              />
+              /> Duration is 120 minutes.
               <br></br> <br></br>
               <div style={{ textAlign: "center", backgroundColor: "#E1E1E1" }}>
                 Problemset{" "}
