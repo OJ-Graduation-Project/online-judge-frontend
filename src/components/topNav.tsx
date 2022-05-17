@@ -6,11 +6,19 @@ const cookie = new Cookie();
 
 function TopNav() {
   return (
-    <>
+    < >
       <S.Ul>
-        <h3>  <Link style={{ textDecoration: 'none', color: 'crimson' }} to="/">
-          Online Judge
-        </Link></h3>
+        <h3>
+          <Link style={{ textDecoration: 'none', color: 'green' }} to="/">
+            Onl
+          </Link>
+          <Link style={{ textDecoration: 'none', color: 'orange' }} to="/">
+            ine Ju
+          </Link>
+          <Link style={{ textDecoration: 'none', color: 'red' }} to="/">
+            dge
+        </Link>
+        </h3>
         <NavLink to="/">
           <li>Problems</li>
         </NavLink>
