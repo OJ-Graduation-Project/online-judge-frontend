@@ -8,20 +8,25 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { LOGIN_URL } from "../../data/EndPoints";
-
 import Cookies from 'universal-cookie';
+
 const cookies = new Cookies();
 const theme = createTheme();
 
 const Login: React.FC = () =>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookie, setCookie] = useState(null)
+    const [cookie, setCookie] = useState(cookies.get("cookie"))
     const navigate = useNavigate();
+    useEffect(() => {
+        if(cookie != null){
+            navigate("/home")
+        }
+    });
     const handleClick=()=>{
         const user ={email,password};
         fetch(LOGIN_URL,{
