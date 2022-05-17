@@ -1,6 +1,7 @@
 import { BsSearch } from "react-icons/bs";
 import styles from "../../home/styles.module.css";
 import React, { useState, useEffect } from "react";
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function SearchBar() {
   const [searchValue, setsearchValue] = useState("");
@@ -22,7 +23,7 @@ export default function SearchBar() {
       <button onClick={(event) =>
               (window.location.href = "/home/?search=" + searchValue)
             }>
-        <BsSearch />
+        <SearchIcon color = "primary" />
       </button>
     </div>
   );
