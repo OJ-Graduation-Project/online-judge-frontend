@@ -7,9 +7,10 @@ import Dropdown from 'react-dropdown';
 import TopNav from "../../components/topNav";
 import {CREATE_PROBLEM_URL} from "../../data/EndPoints"
 import {TestCase} from "../../data/interfaces";
+import {useNavigate} from 'react-router-dom'
 
 const CreateProblem: React.FC = () => {
-
+    const navigate = useNavigate();
     const saveProblem = () => {
         const problem = {
             problemName: problemName,
@@ -28,7 +29,8 @@ const CreateProblem: React.FC = () => {
             credentials: 'include',
             body:JSON.stringify(problem)
         }).then(()=>{
-            console.log("done");
+            alert("Problem created successfully.")
+            navigate("/")
         })
     }
 

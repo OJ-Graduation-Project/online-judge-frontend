@@ -2,23 +2,34 @@ import React from "react";
 import Button from "@mui/material/Button";
 import styles from "./styles.module.css";
 import {REGISTRATION_URL} from "../../data/EndPoints";
+import {useNavigate} from "react-router-dom";
 const urlParams = new URLSearchParams(window.location.search);
 const contestName = urlParams.get("contest-name");
 
-const handleSubmit = () => {
-  fetch(
-    REGISTRATION_URL+`=${contestName}`,
-    {
-      method: "POST",
-      credentials: 'include',
-      body: JSON.stringify({contestName}),
-    }
-  ).then(() => {
-    console.log("done");
-  });
-};
 const Registration: React.FC = () => {
-  return (
+    const navigate = useNavigate();
+    const handleSubmit = () => {
+
+        fetch(
+            REGISTRATION_URL+`=${contestName}`,
+            {
+                method: "POST",
+                credentials: 'include',
+                body: JSON.stringify({contestName}),
+            }
+        ).then((res) => res.json())
+            .then((json) => {
+                console.log(json)
+                if(json.message == "Registered successfully!") {
+                    alert(json.message)
+                    navigate("/")
+                }
+                else{
+                    alert("Error occurred")
+                }
+            });
+    };
+    return (
     <div className={styles["register"]}>
       <h3 className={styles["warning"]}>
         {" "}

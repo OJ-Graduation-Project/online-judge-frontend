@@ -40,7 +40,7 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
       if(cookie != null){
-          navigate("/home")
+          navigate("/")
       }
   });
   const handleClick = () => {

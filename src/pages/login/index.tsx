@@ -24,7 +24,7 @@ const Login: React.FC = () =>{
     const navigate = useNavigate();
     useEffect(() => {
         if(cookie != null){
-            navigate("/home")
+            navigate("/")
         }
     });
     const handleClick=()=>{
@@ -41,7 +41,7 @@ const Login: React.FC = () =>{
             }
             else{
                 setCookie(cookies.get("cookie"))
-                navigate("/home")
+                navigate("/")
             }
         })
     }

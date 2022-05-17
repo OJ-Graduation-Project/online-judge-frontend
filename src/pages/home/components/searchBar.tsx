@@ -21,7 +21,7 @@ export default function SearchBar() {
         onChange={inputHandler}
       />
       <button onClick={(event) =>
-              (window.location.href = "/home/?search=" + searchValue)
+              (window.location.href = "/?search=" + searchValue)
             }>
         <SearchIcon color = "primary" />
       </button>

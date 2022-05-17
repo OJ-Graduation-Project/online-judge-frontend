@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { Link,BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import Cookie from "universal-cookie"
 
 const cookie = new Cookie();
@@ -8,8 +8,10 @@ function TopNav() {
   return (
     <>
       <S.Ul>
-        <h3>Online Judge</h3>
-        <NavLink to="/home">
+        <h3>  <Link style={{ textDecoration: 'none', color: 'crimson' }} to="/">
+          Online Judge
+        </Link></h3>
+        <NavLink to="/">
           <li>Problems</li>
         </NavLink>
         <NavLink to="/all-contests">
