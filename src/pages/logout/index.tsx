@@ -17,13 +17,13 @@ const Logout: React.FC = () =>{
     },[])
 
     setTimeout(() => {
-        navigate("/home");
+        navigate("/");
     }, 3000);
     return (
         <div className={styles["Login"]}>
             <div className={styles["logout"]}>
                 <h1>Logged out successfully.</h1>
-                <h3><a href="/home">Visit homepage.</a></h3>
+                <h3><a href="/">Visit homepage.</a></h3>
             </div>
         </div>
     );

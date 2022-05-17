@@ -7,6 +7,7 @@ import BasicTableComponent from "./table";
 import { Problem} from "../../data/interfaces";
 import { GridRowId } from "@mui/x-data-grid";
 import ScoreWindow from "./scoreWindow";
+import {useNavigate} from 'react-router-dom'
 const DEFAULT_SCORE=50;
 
 interface Props {}
@@ -23,9 +24,7 @@ interface State {
   problemsScore:number[];
 
 }
-
 export class CreateContest extends Component<Props, State> {
-
   OnClickState(selectedIDs: Set<GridRowId>, rows_size: number) {
 
     let newArr=[""];
@@ -89,15 +88,13 @@ export class CreateContest extends Component<Props, State> {
 
 
   handleCreateButton=()=>{
-
-    const defaultScores= this.handleCheckEnteredScore()    
-
+    const defaultScores= this.handleCheckEnteredScore()
     const contestDetails = {contestName: this.state.contestName, contestStartDate: this.state.contestStartDate, contestEndDate: this.state.contestEndDate, contestProblemSet: this.state.contestProblems, problemsScore:this.state.problemsScore};
-    
+
     if(contestDetails.problemsScore.length===0){
       contestDetails.problemsScore=defaultScores
     }
-    
+
     console.log(contestDetails)
     console.log(JSON.stringify(contestDetails))
     fetch(CREATE_CONTEST_URL,{
@@ -105,19 +102,15 @@ export class CreateContest extends Component<Props, State> {
         credentials: 'include',
         body:JSON.stringify(contestDetails)
     }).then(()=>{
-        console.log("done");
+        window.location.href = "/all-contests"
     })
   }
   componentDidMount() {
-
-    this.fetchBooks();
-
-  
+    this.fetchProblems();
  }
 
   constructor(props: Props) {
     super(props);
-
     let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]};
     this.state = {
       id: [],
@@ -132,7 +125,7 @@ export class CreateContest extends Component<Props, State> {
     };
 
   }
-  fetchBooks = () => {
+  fetchProblems = () => {
 
     fetch(HOME_URL,{
               method : 'POST',
