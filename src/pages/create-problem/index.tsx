@@ -7,9 +7,10 @@ import Dropdown from 'react-dropdown';
 import TopNav from "../../components/topNav";
 import {CREATE_PROBLEM_URL} from "../../data/EndPoints"
 import {TestCase} from "../../data/interfaces";
+import {useNavigate} from 'react-router-dom'
 
 const CreateProblem: React.FC = () => {
-
+    const navigate = useNavigate();
     const saveProblem = () => {
         const problem = {
             problemName: problemName,
@@ -18,7 +19,6 @@ const CreateProblem: React.FC = () => {
             difficulty: difficulty,
             timeLimit: timeLimit,
             memoryLimit: memoryLimit,
-            solutionCode: solutionCode, //
             testcases : testcases
         }
         console.log(problem)
@@ -28,7 +28,8 @@ const CreateProblem: React.FC = () => {
             credentials: 'include',
             body:JSON.stringify(problem)
         }).then(()=>{
-            console.log("done");
+            alert("Problem created successfully.")
+            navigate("/")
         })
     }
 
@@ -38,9 +39,6 @@ const CreateProblem: React.FC = () => {
     const [difficulty, setProblemDifficulty] = useState("")
     const [timeLimit, setProblemTimeLimit] = useState("")
     const [memoryLimit, setProblemMemLimit] = useState("")
-    const [solutionCode, setProblemSolution] = React.useState(
-        `function add(a, b) {\n  return a + b;\n}`
-    );  
 
     const addProblem = () => {
         // insert to database
@@ -52,15 +50,9 @@ const CreateProblem: React.FC = () => {
         setProblemDesc("")
         setProblemDifficulty("")
         setProblemCategory("")
-        setProblemSolution(" `function add(a, b) {\n  return a + b;\n}`")
-        setProblemTimeLimit("") 
+        setProblemTimeLimit("")
         setProblemMemLimit("")
 
-    }
-    const verifySolution = () => {
-        //Call solution result from server and show it
-        console.log("solution is tamam yasta ")
-        // if success call setProblemSolution with the solution
     }
 
     const [language, setLanguage] = useState('java');
@@ -135,29 +127,6 @@ const CreateProblem: React.FC = () => {
             <input id="outlined-basic"  required onChange={event => setProblemTimeLimit(event.target.value)} />
             <h2>Enter Problem Memory Limit:</h2>
             <input id="outlined-basic" required onChange={event => setProblemMemLimit(event.target.value)} />
-
-            <div>
-                <h2>Enter Problem Solution:</h2>
-                <div style={{ width: "50%" }}>
-                    <Dropdown options={allLanguages} onChange={(language) => { setLanguage(language.value) }} value={language} placeholder="Select an option" />
-                </div>
-                <hr />
-                <CodeEditor
-                    value={solutionCode}
-                    language={language}
-                    placeholder="Please enter or paste your code."
-                    onChange={(evn) => setProblemSolution(evn.target.value)}
-                    padding={15}
-                    required
-                    style={{
-                        fontSize: 12,
-                        backgroundColor: "#f5f5f5",
-                        fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                    }}
-                />
-            </div>
-
-            <Button onClick={verifySolution} style={{ float: 'right' }} variant="text">Verify</Button>
             <h2>Enter Test Cases:</h2>
             <div style={{ height: 400, width: "100%" }}>
                 <h3>Enter the input</h3>

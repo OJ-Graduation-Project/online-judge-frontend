@@ -28,7 +28,6 @@ export default function DataTable(props:{
 
       width: 800,
     },
-    { field: "status", headerName: "Status", width: 300 },
     { field: "difficulty", headerName: "Difficulty", width: 300 },
   ];
 
@@ -39,7 +38,6 @@ export default function DataTable(props:{
       id: i+1,
       name: d[i].problemName,
       difficulty: d[i].difficulty,
-      status: "to be discussed ",
     };
   }
   return (
