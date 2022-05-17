@@ -39,8 +39,9 @@ function Collapse() {
       </button>
       <section {...getCollapseProps()}>
         <ul className={styles["ul"]}>
-          {categories.map((category) => (
+          {categories.map((category,index) => (
             <Link
+            key={index}
               component="button"
               onClick={(event) =>
                 (window.location.href = "/topic/?name=" + category)

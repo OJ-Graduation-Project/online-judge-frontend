@@ -42,7 +42,7 @@ export default function ScoreWindow(props: {
       <Dialog open={open} onClose={handleClose}>
         {props.data.map((problem,index) => {
           return (
-            <div>
+            <div key={index}>
               <DialogTitle>{problem}</DialogTitle>
 
               <DialogContent>
