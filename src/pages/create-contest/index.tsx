@@ -195,31 +195,14 @@ export class CreateContest extends Component<Props, State> {
               <div style={{ textAlign: "center", backgroundColor: "#E1E1E1" }}>
                 Problemset{" "}
               </div>
-              <table
-                style={{
-                  width: "100%",
-                  position: "relative",
-                  boxSizing: "border-box",
-                  borderColor: "grey",
-                  border: "4px solid #E1E1E1",
-                  borderCollapse: "collapse",
-                }}
-              >
+   
 
             <BasicTableComponent
                   onClick={this.OnClickState.bind(this)}
                   data={this.state.problems}
 
 />
-              </table>
-              <TablePagination
-                rowsPerPageOptions={[5]}
-                component="div"
-                count={this.state.elements}
-                rowsPerPage={5}
-                page={this.state.page}
-                onPageChange={this.handleChangePage}
-              />
+     
               <br></br>
               <div
                 style={{

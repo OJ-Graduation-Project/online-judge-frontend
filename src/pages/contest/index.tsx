@@ -13,7 +13,7 @@ import { Problem, scoreRequest, scoreResponse } from "../../data/interfaces";
 import styles from "./styles.module.css";
 import CountDownTimer from "./components/CountDownTimer";
 import MaterialTable from '@material-table/core';//material-table@1.69.3
-
+import BasicTableComponent from "../contest/components/table";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -21,29 +21,12 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const renderHeader = () => {
-    let headerElement = ["#", "Name", "constraint", "Difficulty"];
 
-    return headerElement.map((key, index) => {
-        return (
-            <th
-                style={{
-                    textAlign: "center",
-                    border: "4px solid #E1E1E1",
-                    borderCollapse: "collapse",
-                }}
-                key={index}
-            >
-                {key.toUpperCase()}
-            </th>
-        );
-    });
-};
 const renderRankHeader = () => {
     let headerElement = ["Rank", "Name", "Score"];
     return headerElement.map((key, index) => {
         return (
-            <th
+            <thead
                 style={{
                     textAlign: "center",
                     border: "4px solid #E1E1E1",
@@ -52,7 +35,7 @@ const renderRankHeader = () => {
                 key={index}
             >
                 {key.toUpperCase()}
-            </th>
+            </thead>
         );
     });
 };
@@ -148,7 +131,7 @@ const ContestFront: React.FC = () => {
         <div>
             <TopNav />
             <Container maxWidth="lg">
-                <h1 style={{ margin: "40px 0px", lineHeight: "1.7" }}>Contest 1</h1>
+                <h1 style={{ margin: "40px 0px", lineHeight: "1.7" }}>{id}</h1>
                 <h3 style={{ fontWeight: "300" }}>Welcome to the 1st Weekly Contest</h3>
                 <br></br>
                 <h4 style={{ fontWeight: "400" }}>Important Notes </h4>
@@ -190,20 +173,8 @@ const ContestFront: React.FC = () => {
                                     {loading ? (
                                         <div></div>
                                     ) : (
-                                        <table
-                                            style={{
-                                                width: "100%",
-                                                position: "relative",
-                                                boxSizing: "border-box",
-                                                borderColor: "grey",
-                                                border: "4px solid #E1E1E1",
-                                                borderCollapse: "collapse",
-                                            }}
-                                        >
-                                            <tr>{renderHeader()}</tr>
-
-                                            <Problemline data={problems}></Problemline>
-                                        </table>
+                                      
+                                        <BasicTableComponent data={problems}/>
                                     )}
                                 </div>
                             </Item>
