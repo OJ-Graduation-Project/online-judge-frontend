@@ -57,7 +57,7 @@ export default function DataTable(props:{
     rows[i] = {
       name: props.data[i].contestname,
       id:i+1,
-      start: props.data[i].conteststartdate,
+      start: new Date(props.data[i].conteststartdate).toUTCString(),
     };
   }
   

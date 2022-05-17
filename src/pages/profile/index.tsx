@@ -67,7 +67,7 @@ const Profile: React.FC = () => {
                                 <TitleInfo title="Country" value={profile.country} />
                                 <TitleInfo title="Organization" value={profile.organization} />
                                 <TitleInfo title="Rating" value={profile.rating.toString()} />
-                                <TitleInfo title="Joined" value={profile.registrationDate} />
+                                <TitleInfo title="Joined" value={new Date(profile.registrationDate).toDateString()} />
                             </div>
                             <div className={styles["image"]} >
                                 <img className={styles["img"]} src={logo} alt="logo" />
