@@ -73,6 +73,7 @@ const ContestFront: React.FC = () => {
     const [problems, setProblems] = useState([probs]);
     const [loading, setLoading] = useState(true);
     const [loadingScore, setLoadingScore] = useState(true);
+    const [userRegistered, setUserRegistered] = useState(true);
 
     let scorereq: scoreRequest = { page: 1, contestid: Number(id) };
     const [scoreRequest, setScoreRequest] = useState(scorereq);
@@ -80,12 +81,21 @@ const ContestFront: React.FC = () => {
     const [scoreboardresp, setScoreboardresp] = useState([scoreresp]);
     useEffect(() => {
         fetch(CONTEST_URL + id, {
-            method: "GET",
+            method: "POST",
+            credentials: 'include'
         })
             .then((res) => res.json())
             .then((json) => {
-                setLoading(false);
-                setProblems(json);
+                console.log("json in contest " , json.message)
+                if(json.message != "error") {
+                    console.log("inside right " , json.message)
+                    setLoading(false);
+                    setProblems(json);
+                    setUserRegistered(true);
+                } else {
+                    console.log("inside wrong " , json.message)
+                    setUserRegistered(false);
+                }
             });
         fetch(CONTEST_URL + id + "/scoreboard", {
             method: "POST",
@@ -123,12 +133,18 @@ const ContestFront: React.FC = () => {
         return true;
     };
 
-    return (contestDate.getTime() - today.getTime() > 0) ? (
+    
+    return ((contestDate.getTime() - today.getTime() > 0) && userRegistered) ? (
         <div className={styles["contest"]}>
+             {console.log(userRegistered)
+             }
             <CountDownTimer millis={timeLeft.getTime()} />
         </div>
     ) : (
         <div>
+        { userRegistered && 
+            <div> 
+             
             <TopNav />
             <Container maxWidth="lg">
                 <h1 style={{ margin: "40px 0px", lineHeight: "1.7" }}>{id}</h1>
@@ -235,7 +251,17 @@ const ContestFront: React.FC = () => {
                     }
                 />
             </Container>
+            
         </div>
+    }
+        { !userRegistered && 
+            <div>
+                <TopNav />
+                <h1>User not registered</h1>
+            </div>
+        }
+    </div>
+
     );
     // }
 };
