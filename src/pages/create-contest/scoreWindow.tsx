@@ -6,17 +6,24 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Problem} from "../../data/interfaces";
 
 export default function ScoreWindow(props: {
-  data: string[],
-  onClick:(problemScores:Array<number>)=>void;
+  data: number[],
+  problems: Problem[],
+  onClick:(problemScores:number[])=>void;
 
 }) {
   const [open, setOpen] = React.useState(false);
   const [problemScores,setProblemScores] = React.useState([]);
+  const [extract, setextract] = React.useState(false);
+
+  const [problemnames, setProblemnames] = React.useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
+    extractNameFromId();
+
   };
 
   const handleClose = () => {
@@ -33,6 +40,22 @@ export default function ScoreWindow(props: {
      setProblemScores(newScore);
 
   };
+  
+  const extractNameFromId =()=>{
+    let selectedProblemNames=[""];
+    props.problems.map(problem=>{
+      if(props.data.includes(problem._id)){
+        selectedProblemNames.push(problem.problemName);
+        console.log(problem.problemName);
+      }
+    }
+    )
+    selectedProblemNames.shift();
+    setProblemnames(selectedProblemNames);
+    setextract(true);
+    //console.log(selectedProblemNames);
+  }
+
 
   return (
     <div>
@@ -40,7 +63,7 @@ export default function ScoreWindow(props: {
         Set scores
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        {props.data.map((problem,index) => {
+        {extract&&problemnames.map((problem,index) => {
           return (
             <div key={index}>
               <DialogTitle>{problem}</DialogTitle>

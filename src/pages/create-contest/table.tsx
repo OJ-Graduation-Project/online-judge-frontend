@@ -6,7 +6,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 
 export default function DataTable(props:{
   data: Problem[],
-  onClick:(problemname: Set<GridRowId>,size:number)=>void;
+  onClick:(problemname: number[],size:number)=>void;
 
 }) {
   const d = props.data;
@@ -35,12 +35,14 @@ export default function DataTable(props:{
   ];
 
   const rows = [{id:"",difficulty:""}];
-
+  let myMap = new Map<string, number>();
+  let selectedproblemids: number[];
   for (let i = 0; i < d.length; i++) {
     rows[i] = {
       id: d[i].problemName,
       difficulty: d[i].difficulty,
     };
+    myMap.set(d[i].problemName, d[i]._id);
   }
   return (
     <div style={{ height: 350, width: "100%" }}>
@@ -52,7 +54,12 @@ export default function DataTable(props:{
         checkboxSelection
         onSelectionModelChange={(ids) => {
              const selectedIDs = new Set(ids);
-             props.onClick(selectedIDs,rows.length)
+             selectedproblemids=[];
+             selectedIDs.forEach((key,value)=>
+             selectedproblemids.push(myMap.get(value.toString())) 
+             );
+
+             props.onClick(selectedproblemids,rows.length)
 
           }}
 

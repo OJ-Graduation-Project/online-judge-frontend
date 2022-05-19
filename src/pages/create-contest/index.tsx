@@ -19,23 +19,24 @@ interface State {
   contestName: string;
   contestStartDate: string;
   contestEndDate: string;
-  contestProblems: string[];
+  contestProblems: number [];
   problems: Problem[];
   problemsScore:number[];
 
 }
 export class CreateContest extends Component<Props, State> {
-  OnClickState(selectedIDs: Set<GridRowId>, rows_size: number) {
+  OnClickState(selectedIDs: number[], rows_size: number) {
 
-    let newArr=[""];
+ /*   let newArr=[""];
     selectedIDs.forEach((key,value)=>
     newArr.push(value.toString())
     )
     newArr.shift()
-
+*/
+    //selectedIDs.shift();
     this.setState(
       {
-        contestProblems: newArr,
+        contestProblems: selectedIDs,
         elements: rows_size,
       },
       () => {
@@ -70,7 +71,7 @@ export class CreateContest extends Component<Props, State> {
     this.setState({ contestEndDate: date });
   };
 
-  handleContestProblems = (event: unknown, name: string[]) => {
+  handleContestProblems = (event: unknown, name: number[]) => {
     this.setState({ contestProblems: name });
   };
 
@@ -205,7 +206,7 @@ export class CreateContest extends Component<Props, State> {
                 >
                   Create 
                 </Button>
-                <ScoreWindow data={this.state.contestProblems} onClick={this.handleProblemScore.bind(this)}/>
+                <ScoreWindow data={this.state.contestProblems} problems={this.state.problems} onClick={this.handleProblemScore.bind(this)}/>
               </div>
             </div>
           {/* </form> */}
