@@ -5,15 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {USER_PROBLEMS_URL} from "../../data/EndPoints";
 import {Problem} from "../../data/interfaces";
+import AlertDialoge from "../../components/alertDialoge"
+import BaseTable from "./components/table";
 
-const columns: GridColDef[] = [
-  { field: "problemName", headerName: "Problem Name", width: 150 },
-  { field: "numberOfSubmissions", headerName: "Number Of Submissions", width: 150 },
-  { field: "description", headerName: "Description", width: 150 },
-  { field: "timeLimit", headerName: "Time Limit", width: 150 },
-  { field: "memoryLimit", headerName: "Space", width: 150 },
-  { field: "difficulty", headerName: "Difficulty", width: 150 },
-];
+const emptyString="You don't have any created Problems yet! But you can create your own Problem now from Create Problem tab."
 
 const UserProblems: React.FC = () => {
   const { id } = useParams()
@@ -33,42 +28,25 @@ const UserProblems: React.FC = () => {
 
   const [problems, setProblems] = useState([problem])
   const [loadingScore, setLoadingScore] = useState(true)
+  const [empty, setEmpty] = useState(false)
 
-  let rows = [{}]
 
   useEffect(() => {
     fetch(USER_PROBLEMS_URL + id, {
       method: 'POST',
     }).then((res) => res.json())
       .then((json) => {
+        if(json.message){
+          setEmpty(true);
+          setLoadingScore(false);
+        }
+        else{
+          setEmpty(false);
         setProblems(json);
         setLoadingScore(false)
+        }
       })
-    // console.log(problems)
   }, [])
-
-  let loaddata = () => {
-    if (loadingScore || problems==null) return false;
-
-    for (let i = 0; i < problems.length; i++) {
-      console.log("subs[i] ", problems[i])
-
-      rows[i] = {
-        id: i,
-        problemName: problems[i].problemName,
-        numberOfSubmissions: problems[i].numberOfSubmissions,
-        description: problems[i].description,
-        timeLimit: problems[i].timeLimit,
-        memoryLimit: problems[i].memoryLimit,
-        difficulty: problems[i].difficulty,
-        //loop on test cases 
-        // input: submissions[i].testcases.testCase.input,
-        // output: submissions[i].failedTestCase.testCase.output
-      };
-    }
-    console.log("rows", rows)
-    return true;
-  }
 
   return (
     <div>
@@ -78,20 +56,9 @@ const UserProblems: React.FC = () => {
 
       <h3>Your Created Problems</h3>
 
-      {loaddata() ?
-        (
-          <div style={{ height: 500, width: "100%" }}><DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={7}
-            rowsPerPageOptions={[7]}
+                <div>{ empty &&<AlertDialoge data={emptyString}/>}</div>
 
-          />
-          </div>) : (
-          <div>
-            You have no problems created
-          </div>
-        )}
+<div>{(!loadingScore)&&(!empty)&&<BaseTable data={problems} />}</div>
     </div>
     </div>
   );
