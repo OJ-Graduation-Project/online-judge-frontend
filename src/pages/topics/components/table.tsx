@@ -3,13 +3,9 @@ import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
 import styles from "../../topics/styles.module.css";
 import {TOPICS_URL} from "../../../data/EndPoints";
-interface Problem {
-  id: number;
-  problemName: string;
-  numberOfSubmissions: number;
-  difficulty: string;
-  topic: string[];
-}
+import AlertDialoge from "../../../components/alertDialoge"
+import {Problem} from "../../../data/interfaces";
+
 const columns: GridColDef[] = [
   { field: "id", headerName: "id", width: 50 },
   {
@@ -42,62 +38,35 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function DataTable() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const topicName = urlParams.get("name");
-  let problem = {
-    id: 0,
-    problemName: "test",
-    numberOfSubmissions: 0,
-    difficulty: "",
-    topic: [""],
-  } as Problem;
-  let [items, setItems] = useState([problem]);
-  let [DataisLoaded, setDataisLoaded] = useState(false);
-  useEffect(() => {
-    fetch(TOPICS_URL, {
-      method: "POST",
-      body: JSON.stringify({ topicName }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json);
+const arrayToString=(topics:string[])=>{
+  let beautifulString=""
+  let beautifulStringArray=[]
 
-        setDataisLoaded(true);
-      });
-  }, []);
+  beautifulString=topics.toString().replaceAll(',',", ")
 
-  useEffect(() => {
-    console.log(items);
-  });
+return beautifulString
+}
+
+export default function DataTable(props:{
+  data: Problem[],
+}) {
   const rows = [{}];
 
-  if (!DataisLoaded)
-    return (
-      <div>
-        <h4> Loading "{topicName}", please wait some time... </h4>
-      </div>
-    );
-  else
-    for (let i = 0; i < items.length; i++) {
-      let topics: string[] = [""];
-      for (let j = 0; j < items[i].topic.length; j++) {
-        topics[j] = items[i].topic[j] + " ";
-      }
+    for (let i = 0; i < props.data.length; i++) {
+
       rows[i] = {
         id: i + 1,
-        name: items[i].problemName,
-        difficulty: items[i].difficulty,
-        numberOfSubmissions: items[i].numberOfSubmissions,
-        //topic: items[i].topic,
-        topic: topics,
+        name: props.data[i].problemName,
+        difficulty: props.data[i].difficulty,
+        numberOfSubmissions: props.data[i].numberOfSubmissions,
+        //topic: props.data[i].topic,
+        topic: arrayToString(props.data[i].topic),
+
       };
     }
   return (
     <div>
-      <div className={styles["header"]}>
-        <h3>{topicName} Problems.</h3>
-      </div>
+
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows}

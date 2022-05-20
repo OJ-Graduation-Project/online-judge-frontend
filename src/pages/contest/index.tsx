@@ -69,6 +69,7 @@ const ContestFront: React.FC = () => {
         testcases: [],
         timeLimit: "",
         writerId: 0,
+        topic:[]
     };
     const [problems, setProblems] = useState([probs]);
     const [loading, setLoading] = useState(true);

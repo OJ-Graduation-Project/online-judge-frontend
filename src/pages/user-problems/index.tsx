@@ -23,7 +23,8 @@ const UserProblems: React.FC = () => {
     _id: 0,
     writerId: 0,
     testcases: [],
-    problemSubmissionsId: []
+    problemSubmissionsId: [],
+    topic:[]
   }
 
   const [problems, setProblems] = useState([problem])
