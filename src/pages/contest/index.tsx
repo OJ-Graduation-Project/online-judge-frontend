@@ -97,7 +97,7 @@ const ContestFront: React.FC = () => {
                     setUserRegistered(false);
                 }
             });
-        fetch(CONTEST_URL + id + "/scoreboard", {
+        /*fetch(CONTEST_URL + id + "/scoreboard", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(scoreRequest),
@@ -106,7 +106,7 @@ const ContestFront: React.FC = () => {
             .then((jsonval) => {
                 setScoreboardresp(jsonval);
                 setLoadingScore(false);
-            });
+            });*/
     }, []);
 
     const columns: GridColDef[] = [
