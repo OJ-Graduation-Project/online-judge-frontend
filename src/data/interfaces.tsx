@@ -8,15 +8,13 @@ export interface TestCase {
 export interface Problem {
     _id: number,
 	problemName: string,
-	numberOfSubmissions: number,
 	writerId: number,
 	description: string,
 	timeLimit: string,
 	memoryLimit: string,
 	difficulty: string,
 	testcases: TestCase[],
-	problemSubmissionsId: [],
-    topic:[],
+    topic:string,
 }
 export interface scoreRequest{
     page:number,

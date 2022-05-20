@@ -6,21 +6,22 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import Dropdown from 'react-dropdown';
 import TopNav from "../../components/topNav";
 import {CREATE_PROBLEM_URL} from "../../data/EndPoints"
-import {TestCase} from "../../data/interfaces";
+import {TestCase,Problem} from "../../data/interfaces";
 import {useNavigate} from 'react-router-dom'
 
 const CreateProblem: React.FC = () => {
     const navigate = useNavigate();
     const saveProblem = () => {
-        const problem = {
-            problemName: problemName,
-            description: description,
-            topic: problemTopic,//
-            difficulty: difficulty,
-            timeLimit: timeLimit,
-            memoryLimit: memoryLimit,
-            testcases : testcases
-        }
+        // const problem = {
+        //     problemName: problemName,
+        //     description: description,
+        //     topic: problemTopic,//
+        //     difficulty: difficulty,
+        //     timeLimit: timeLimit,
+        //     memoryLimit: memoryLimit,
+        //     testcases : testcases
+        // }
+        let problem :Problem = {_id: 0, problemName:problemName, writerId:0, description:description, timeLimit:timeLimit, memoryLimit:memoryLimit, difficulty:difficulty, testcases:testcases,topic:problemTopic};
         console.log(problem)
 
         fetch(CREATE_PROBLEM_URL,{

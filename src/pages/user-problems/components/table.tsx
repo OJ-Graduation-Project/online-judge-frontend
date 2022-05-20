@@ -20,13 +20,11 @@ export default function DataTable(props:{
   for (let i = 0; i < props.data.length; i++) {
     rows[i] = {
         problemName: props.data[i].problemName,
-        numberOfSubmissions: props.data[i].numberOfSubmissions,
         timeLimit: props.data[i].timeLimit,
         memoryLimit: props.data[i].memoryLimit,
         difficulty: props.data[i].difficulty,
 
       id:i+1,
-    //   start: new Date(props.data[i].conteststartdate).toUTCString(),
     };
   }
   

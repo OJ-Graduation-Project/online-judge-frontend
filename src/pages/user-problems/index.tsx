@@ -15,7 +15,6 @@ const UserProblems: React.FC = () => {
 
   let problem: Problem = {
     problemName: "",
-    numberOfSubmissions: 0,
     description: "",
     timeLimit: "",
     memoryLimit: "",
@@ -23,8 +22,7 @@ const UserProblems: React.FC = () => {
     _id: 0,
     writerId: 0,
     testcases: [],
-    problemSubmissionsId: [],
-    topic:[]
+    topic:""
   }
 
   const [problems, setProblems] = useState([problem])

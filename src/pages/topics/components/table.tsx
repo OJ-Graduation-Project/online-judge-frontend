@@ -38,14 +38,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-const arrayToString=(topics:string[])=>{
-  let beautifulString=""
-  let beautifulStringArray=[]
-
-  beautifulString=topics.toString().replaceAll(',',", ")
-
-return beautifulString
-}
 
 export default function DataTable(props:{
   data: Problem[],
@@ -58,9 +50,8 @@ export default function DataTable(props:{
         id: i + 1,
         name: props.data[i].problemName,
         difficulty: props.data[i].difficulty,
-        numberOfSubmissions: props.data[i].numberOfSubmissions,
         //topic: props.data[i].topic,
-        topic: arrayToString(props.data[i].topic),
+        topic: props.data[i].topic,
 
       };
     }

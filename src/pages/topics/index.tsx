@@ -14,7 +14,6 @@ const Topics: React.FC = () => {
   const emptyString=`No Problems in topic ${topicName} exist yet!`
   let problem: Problem = {
     problemName: "",
-    numberOfSubmissions: 0,
     description: "",
     timeLimit: "",
     memoryLimit: "",
@@ -22,8 +21,7 @@ const Topics: React.FC = () => {
     _id: 0,
     writerId: 0,
     testcases: [],
-    problemSubmissionsId: [],
-    topic:[]
+    topic:""
   }
   let [items, setItems] = useState([problem]);
   let [DataisLoaded, setDataisLoaded] = useState(true);

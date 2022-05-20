@@ -64,12 +64,10 @@ const ContestFront: React.FC = () => {
         difficulty: "",
         description: "",
         memoryLimit: "",
-        numberOfSubmissions: 0,
-        problemSubmissionsId: [],
         testcases: [],
         timeLimit: "",
         writerId: 0,
-        topic:[]
+        topic:""
     };
     const [problems, setProblems] = useState([probs]);
     const [loading, setLoading] = useState(true);

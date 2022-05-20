@@ -9,7 +9,7 @@ import { Problem} from "../../data/interfaces";
 const Submit: React.FC= () =>{
     const urlParams = new URLSearchParams(window.location.search);
     const problemId = urlParams.get("id");
-    let p :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[],topic:[]}
+    let p :Problem = {_id: 0, problemName:"",  writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],topic:""}
     const [problem, setProblem] = useState(p);
     const navigate = useNavigate()
     useEffect(()=>{
