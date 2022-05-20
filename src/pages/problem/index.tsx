@@ -32,7 +32,7 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
 
         return 0;
     }
-        `,time: "",space: "",accepted: "",failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
+        `,time: "",space: "",accepted: false,failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
     }
     let [problem, setProblem] = useState(p)
     let [problemIsLoaded, setProblemIsLoaded] = useState(false)

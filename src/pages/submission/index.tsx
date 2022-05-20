@@ -10,7 +10,7 @@ const Submission: React.FC = () =>{
     const [submission , setSubmission] = useState({
         submittedCode: "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        if(n < 0)\n            return false;\n        return __builtin_popcount(n) == 1;\n    }\n};",
         language: "cpp",
-        accepted: false,
+        accepted: true,
         date: "1/1/2021",
         problemId: 0,
         space: "100 kb",

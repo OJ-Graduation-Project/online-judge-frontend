@@ -16,7 +16,7 @@ const UserSubmissions: React.FC = () => {
     date: "",
     submittedCode: "",
     language: "",
-    accepted: "",
+    accepted:true,
     time: "",
     space: "",
     failedTestCase: {
