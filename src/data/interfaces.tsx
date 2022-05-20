@@ -15,7 +15,8 @@ export interface Problem {
 	memoryLimit: string,
 	difficulty: string,
 	testcases: TestCase[],
-	problemSubmissionsId: []
+	problemSubmissionsId: [],
+    topic:[],
 }
 export interface scoreRequest{
     page:number,

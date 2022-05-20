@@ -8,7 +8,7 @@ import {HOME_URL} from "../../data/EndPoints"
 import {Problem} from "../../data/interfaces";
 
 const Home: React.FC = () => {
-  let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]}
+  let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[],topic:[]}
   const [problems, setProblems] = useState([problem]);
   
   const urlParams = new URLSearchParams(window.location.search);

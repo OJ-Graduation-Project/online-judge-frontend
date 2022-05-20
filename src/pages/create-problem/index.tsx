@@ -15,7 +15,7 @@ const CreateProblem: React.FC = () => {
         const problem = {
             problemName: problemName,
             description: description,
-            Category: problemCategory,//
+            topic: problemTopic,//
             difficulty: difficulty,
             timeLimit: timeLimit,
             memoryLimit: memoryLimit,
@@ -35,7 +35,7 @@ const CreateProblem: React.FC = () => {
 
     const [problemName, setProblemName] = useState("")
     const [description, setProblemDesc] = useState("")
-    const [problemCategory, setProblemCategory] = useState("")
+    const [problemTopic, setProblemTopic] = useState("")
     const [difficulty, setProblemDifficulty] = useState("")
     const [timeLimit, setProblemTimeLimit] = useState("")
     const [memoryLimit, setProblemMemLimit] = useState("")
@@ -49,7 +49,7 @@ const CreateProblem: React.FC = () => {
         setProblemName("")
         setProblemDesc("")
         setProblemDifficulty("")
-        setProblemCategory("")
+        setProblemTopic("")
         setProblemTimeLimit("")
         setProblemMemLimit("")
 
@@ -120,7 +120,7 @@ const CreateProblem: React.FC = () => {
             <h2>Enter Problem Description:</h2>
             <TextField id="outlined-basic" required minRows={10} fullWidth={true} label="Problem description" multiline={true} variant="filled" onChange={event => setProblemDesc(event.target.value)} />
             <h2>Choose problem category:</h2>
-            <Dropdown options={categories}  onChange={(problemCategory) => { setProblemCategory(problemCategory.value) }} value={problemCategory} placeholder="Select a category" />
+            <Dropdown options={categories}  onChange={(problemTopic) => { setProblemTopic(problemTopic.value) }} value={problemTopic} placeholder="Select a category" />
             <h2>Choose problem difficulty:</h2>
             <Dropdown options={difficulties} onChange={(problemDifficulty) => { setProblemDifficulty(problemDifficulty.value) }} value={difficulty} placeholder="Select a difficulty" />
             <h2>Enter Problem Time Limit:</h2>

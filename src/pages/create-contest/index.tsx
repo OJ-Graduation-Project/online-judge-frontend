@@ -111,7 +111,7 @@ export class CreateContest extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[]};
+    let problem :Problem = {_id: 0, problemName:"", numberOfSubmissions:0, writerId:0, description:"", timeLimit:"", memoryLimit:"", difficulty:"", testcases:[],problemSubmissionsId:[],topic:[]};
     this.state = {
       id: [],
       elements: 0,
