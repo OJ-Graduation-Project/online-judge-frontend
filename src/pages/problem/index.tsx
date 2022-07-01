@@ -26,11 +26,11 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     let s: Submission = {_id: 0,problemId: 0,userId: 0,date: "1/1/2021",language: "cpp",submittedCode: `#include <bits/stdc++.h>
     using namespace std;
     
-    int main()
+    void implement()
     {
-        //write your code here
+        //write your code here, Input from stdin, Output from stdout.
 
-        return 0;
+
     }
         `,time: "",space: "",accepted: "",failedTestCase: {testCase: {problemId: 1,testCaseNumber: 1,input: "",output: "",},reason: "",userOutput: "",}
     }
@@ -71,17 +71,14 @@ const SingleProblem: React.FC <{isContest:boolean}>= ({isContest}) =>{
     })
 
     const [language, setLanguage] = useState('cpp');
-    const allLanguages = ['java', 'c', 'cpp', 'python'];
+    const allLanguages = [ 'c', 'cpp'];
     const [code, setCode] = React.useState(
     `
-    #include <iostream>
-    using namespace std;
-    
-    int main()
+    #include <stdio.h>
+    void implement()
     {
-        //write your code here
-        
-        return 0;
+        //write your code here, Input from stdin, Output from stdout.
+
     }`);
     const closeVerdict=()=>{
         setSubmissionIsLoaded(false);
